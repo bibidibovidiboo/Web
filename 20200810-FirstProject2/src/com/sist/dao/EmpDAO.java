@@ -1,3 +1,4 @@
+// SELECT * FROM emp 만들기 (응용)
 package com.sist.dao;
 import java.util.*;
 import java.sql.*;
