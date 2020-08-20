@@ -65,7 +65,7 @@ public class MovieMain extends HttpServlet {
 		for(MovieVO vo:list) {
 			out.println("<div class=\"col-md-3\">");
 			out.println("<div class=\"thumbnail\">");
-			out.println("<a href=\"#\">");
+			out.println("<a href=MovieDetail?no="+vo.getNo()+">");
 			out.println("<img src="+vo.getPoster()+" alt=\"Lights\" style=\"width:100%\">");
 			out.println("<div class=\"caption\">");
 			String str=vo.getTitle();

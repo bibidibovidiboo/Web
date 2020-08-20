@@ -83,7 +83,8 @@ public class MovieDAO {
 				System.out.println(ex.getMessage());
 			}
 		}
-		
+		// ArrayList
+		// 영화
 		public ArrayList<MovieVO> movieListData(int cno){
 			ArrayList<MovieVO> list=new ArrayList<MovieVO>();
 			try {
@@ -91,7 +92,7 @@ public class MovieDAO {
 				getConnetion();
 				// SQL문장
 				String sql="SELECT poster,title,no FROM daum_movie "
-						+"WHERE cateno=?";
+						+"WHERE cateno=? ORDER BY no";
 				ps=conn.prepareStatement(sql);
 				ps.setInt(1, cno);
 				// 전송
@@ -116,6 +117,7 @@ public class MovieDAO {
 			return list;
 		}
 		
+		// 영화뉴스
 		public ArrayList<NewsVO> newsListData(){
 			ArrayList<NewsVO> list=new ArrayList<NewsVO>();
 			try {
@@ -146,6 +148,76 @@ public class MovieDAO {
 				disConnetion();
 			}
 			return list;
-		}		
+		}
+		
+		// 영화 상세보기
+		public MovieVO movieDetailData(int no) {
+			MovieVO vo=new MovieVO();
+			try {
+				// 연결
+				getConnetion();
+				// SQL 전송
+				String sql="SELECT * FROM daum_movie "
+						+"WHERE no=?";
+				ps=conn.prepareStatement(sql);
+				// 실행요청 하기 전에 ?에 값을 채운다
+				ps.setInt(1, no);
+				// 결과값 받기
+				ResultSet rs=ps.executeQuery(); // 실행
+				rs.next(); // 커서이동 (데이터가 출력된 위치)
+				
+				vo.setNo(rs.getInt(1));
+				vo.setCateno(rs.getInt(2));
+				vo.setTitle(rs.getString(3));
+				vo.setPoster(rs.getString(4));
+				vo.setRegdate(rs.getString(5));
+				vo.setGenre(rs.getString(6));
+				vo.setGrade(rs.getString(7));
+				vo.setActor(rs.getString(8));
+				vo.setScore(rs.getString(9));
+				vo.setDirector(rs.getString(10));
+				vo.setStory(rs.getString(11));
+				vo.setKey(rs.getString(12));
+				rs.close();
+				
+			}catch (Exception ex) {
+				System.out.println(ex.getMessage());
+			}finally {
+				disConnetion();
+			}
+			return vo;
+		}
+		
+		// 댓글 관련 => INSERT , UPDATE , DELETE 
+		public ArrayList<ReplyVO> movieReplyData(int mno){
+			ArrayList<ReplyVO> list=new ArrayList<ReplyVO>();
+			try {
+				getConnetion();
+				// 시간은 TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS' => 이렇게 변환해서 써줘야함
+				String sql="SELECT no,mno,id,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') "
+						+"FROM daum_reply "
+						+"WHERE mno=? "
+						+"ORDER BY no DESC"; // 최신순으로 출력
+				ps=conn.prepareStatement(sql);
+				ps.setInt(1, mno);
+				ResultSet rs=ps.executeQuery();
+				while(rs.next()) {
+					ReplyVO vo=new ReplyVO();
+					vo.setMno(rs.getInt(1));
+					vo.setMno(rs.getInt(2));
+					vo.setId(rs.getString(3));
+					vo.setMsg(rs.getString(4));
+					vo.setDbday(rs.getString(5));
+					list.add(vo);
+				}
+				rs.close();
+			}catch (Exception ex) {
+				System.out.println(ex.getMessage());
+			}finally {
+				disConnetion();
+			}
+			return list;
+		}
+				
 			
 }

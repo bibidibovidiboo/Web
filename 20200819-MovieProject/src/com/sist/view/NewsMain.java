@@ -35,6 +35,7 @@ public class NewsMain extends HttpServlet {
 			out.println("<td rowspan=3 width=30%>");
 			String poster=vo.getPoster();
 			poster=poster.substring(0,poster.lastIndexOf(")")); // 뒤에 주소 잘라서 넣으려고 
+			out.println("<a href="+vo.getLink()+">");
 			out.println("<img src="+poster+" width=350 height=250>");
 			out.println("</td>");
 			out.println("<td width=70%><b><font color=orange>"+vo.getTitle()+"</font></b></td>");
