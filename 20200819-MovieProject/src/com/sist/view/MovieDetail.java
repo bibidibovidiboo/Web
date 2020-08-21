@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.dao.MovieDAO;
 import com.sist.dao.ReplyVO;
@@ -99,8 +100,11 @@ public class MovieDetail extends HttpServlet {
 		out.println("<table class=table>");
 		out.println("<tr>");
 		out.println("<td>");
+		out.println("<form method=post action=MovieDetail>");
+		out.println("<input type=hidden name=mno value="+no+">");
 		out.println("<input type=text size=25 class=input-sm name=msg>");
 		out.println("<input type=submit size=25 class=\"btn btn-sm btn-primary\" value=댓글쓰기>"); // \ => 공백 때문에 사용
+		out.println("</form>");
 		out.println("</td>");
 		out.println("</tr>");
 		out.println("</table>");
@@ -109,6 +113,11 @@ public class MovieDetail extends HttpServlet {
 		out.println("<table class=table>");	
 		out.println("<tr>");
 		out.println("<td>");
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id"); // 저장된 ID를 가지고 온다
+		
+		
 		for(ReplyVO rvo:rList) {
 			out.println("<table class=table>");	
 			out.println("<tr>");
@@ -116,8 +125,12 @@ public class MovieDetail extends HttpServlet {
 			out.println(rvo.getId()+"("+rvo.getDbday()+")");
 			out.println("</td>");	
 			out.println("<td class=text-right>");
-			out.println("<a href=# class=\"btn btn-xs btn-primary\">수정</a>");
-			out.println("<a href=# class=\"btn btn-xs btn-danger\">삭제</a>");
+			
+			// 들어간 사람만 수정삭제가 되도록함
+			if(id.equals(rvo.getId())){
+				out.println("<a href=# class=\"btn btn-xs btn-primary\">수정</a>");
+				out.println("<a href=MovieDelete?no="+rvo.getNo()+"&mno="+vo.getNo()+" class=\"btn btn-xs btn-danger\">삭제</a>");
+			}
 			out.println("</td>");	
 			out.println("</tr>");
 			out.println("<tr>");
@@ -140,6 +153,26 @@ public class MovieDetail extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			request.setCharacterEncoding("EUC-KR");
+			// 한글 깨짐 방지
+		}catch (Exception ex) {}
+		String mno=request.getParameter("mno");
+		String msg=request.getParameter("msg");
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id"); // 저장된 ID를 가지고 온다
+		
+		ReplyVO	vo=new ReplyVO();
+		vo.setMno(Integer.parseInt(mno));
+		vo.setMsg(msg);
+		vo.setId(id);
+		// DAO 전송
+		MovieDAO dao=new MovieDAO();
+		dao.movieReplyInsert(vo);
+		// 화면 이동
+		response.sendRedirect("MovieDetail?no="+mno);
+		
 		
 	}
 

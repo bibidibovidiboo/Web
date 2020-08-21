@@ -78,7 +78,6 @@ public class MovieMain extends HttpServlet {
 			out.println("</div>");
 			out.println("</div>");
 		}
-		
 		out.println("</div>");
 		out.println("</div>");
 		out.println("</body>");
