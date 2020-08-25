@@ -72,15 +72,24 @@ public class MusicDAO {
 		
 	}
 	// 영화 => 출력
-	public ArrayList<MovieVO> movieAllData(){
+	public ArrayList<MovieVO> movieAllData(int page){
 		ArrayList<MovieVO> list=new ArrayList<MovieVO>();
 		try {
 			getConnetion(); // 연결
 			// SQL 문장 전송
-			String sql="SELECT no,title,poster,regdate,genre,actor,director "
-					+"FROM daum_movie "
-					+"WHERE cateno=1 ORDER BY no";
+			int rowSize=10; // 몇개가 한페이지인지
+			
+			int start=(page*rowSize)-(rowSize-1);
+			int end=page*rowSize; 
+			
+			String sql="SELECT no,title,poster,regdate,genre,actor,director,num "
+					+"FROM (SELECT no,title,poster,regdate,genre,actor,director, rownum as num "
+					+"FROM (SELECT no,title,poster,regdate,genre,actor,director "
+					+"FROM daum_movie ORDER BY no)) "
+					+"WHERE num BETWEEN ? AND ?";
 			ps=conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
 			// 결과값 받기 
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()) {
@@ -103,5 +112,23 @@ public class MusicDAO {
 		}
 		return list;
 
+	}
+	// 총페이지
+	public int boardTotalPage() {
+		int total=0;
+		try {
+			getConnetion();
+			String sql="SELECT CEIL(COUNT(*)/10.0) FROM jsp_board"; // 올림함수 (페이지)
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			total=rs.getInt(1);
+			rs.close();
+		}catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}finally {
+			disConnetion();
+		}
+		return total;
 	}
 }
