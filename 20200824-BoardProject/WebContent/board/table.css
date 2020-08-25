@@ -4,8 +4,8 @@
 	border-bottom-width: 1px;
 	border-top-style: solid;
 	border-bottom-style: solid;
-	border-top-color: #333;
-	border-bottom-color: #333;
+	border-top-color: #8080c0;
+	border-bottom-color: #8080c0;
 	
 }
 .table_content th,td{
@@ -14,19 +14,19 @@
 	font-size: 9pt;
 }
 .table_content th{
-	background-color: #999;
+	background-color: #8080c0;
 	color: #fff;
 	border-bottom-width: 1px;
-	border-bottom-color: #333;
+	border-bottom-color: #8080c0;
 }
 .table_content td{
 	border-bottom-width: 1px;
-	border-bottom-color: #666;
+	border-bottom-color: #8080c0;
 	border-bottom-style: dotted;
 	
 }
 .table_content .dataTr:HOVER {
-	background-color: #FC6;
+	background-color: #c0c0e0;
 	cursor: pointer;
 	cursor: hand;
 }
