@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE member SYSTEM "member.dtd">
+<member>
+	<list>
+		<name>이름</name>	
+		<sex>성별</sex>
+		<tel>번호</tel>
+		<address>주소</address>
+	</list>
+</member>

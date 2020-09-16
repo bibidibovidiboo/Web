@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   = 직접 제작하지 않는다 (보고 xml을 제작가능)
+   = table을 설계x , table에 내장된 데이터 읽기
+   
+   ? | * + ,
+   
+   ? : 사용 여부 확인 (사용(o) , 사용(x))
+   | : 둘중 하나 선택
+      tr => th|td
+   * : 여러번 사용 가능 (0번 이상) => html
+   + : 여러번 사용 가능 (1번 이상) => xml
+   , : 순서 a, b
+      <a>
+      <b>
+   default : 반드시 1번만 사용
+   <html>
+     <head>
+     </head>
+     <body>
+     
+     </body>
+   </html>
+   
+   member (list*(+))
+   list (name,sex?,tel|handphone,address?)
+   <member>
+     <list>
+       <name></name>
+       <sex></sex>
+       <tel></tel>
+       <address></address>
+     </list>
+     <list>
+       <name>문자열</name>
+       <sex></sex>
+       <handphone></handphone>
+       <address></address>
+     </list>
+   </member>
+-->
+<!ELEMENT member (list+)>
+<!ELEMENT list (name,sex,(tel|hp),address)>
+<!ELEMENT name (#PCDATA)> <!--PCDATA : 문자열-->
+<!ELEMENT sex (#PCDATA)>
+<!ELEMENT tel (#PCDATA)>
+<!ELEMENT hp (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
