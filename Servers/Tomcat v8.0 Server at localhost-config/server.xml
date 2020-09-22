@@ -60,7 +60,7 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
-    <Connector connectionTimeout="20000" port="8081" protocol="HTTP/1.1" redirectPort="8443"/>
+    <Connector connectionTimeout="20000" port="80" protocol="HTTP/1.1" redirectPort="8443"/>
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
@@ -153,7 +153,21 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="20200824-BoardProject" path="/20200824-BoardProject" reloadable="true" source="org.eclipse.jst.jee.server:20200824-BoardProject"/><Context docBase="20200826-MelonSIteProject" path="/20200826-MelonSIteProject" reloadable="true" source="org.eclipse.jst.jee.server:20200826-MelonSIteProject"/><Context docBase="20200827-ReplyBoard" path="/20200827-ReplyBoard" reloadable="true" source="org.eclipse.jst.jee.server:20200827-ReplyBoard"/><Context docBase="20200826-MusicSiteProject" path="/20200826-MusicSiteProject" reloadable="true" source="org.eclipse.jst.jee.server:20200826-MusicSiteProject"/><Context docBase="OnLineStudy1" path="/OnLineStudy1" reloadable="true" source="org.eclipse.jst.jee.server:OnLineStudy1"/><Context docBase="OnLineStudy2" path="/OnLineStudy2" reloadable="true" source="org.eclipse.jst.jee.server:OnLineStudy2"/><Context docBase="OnLineStudy3" path="/OnLineStudy3" reloadable="true" source="org.eclipse.jst.jee.server:OnLineStudy3"/><Context docBase="OnLineStudy5" path="/OnLineStudy5" reloadable="true" source="org.eclipse.jst.jee.server:OnLineStudy5"/><Context docBase="OnLineStudy6" path="/OnLineStudy6" reloadable="true" source="org.eclipse.jst.jee.server:OnLineStudy6"/><Context docBase="OnLineStudy7" path="/OnLineStudy7" reloadable="true" source="org.eclipse.jst.jee.server:OnLineStudy7"/><Context docBase="OnLineStudy8" path="/OnLineStudy8" reloadable="true" source="org.eclipse.jst.jee.server:OnLineStudy8"/><Context docBase="OnLineStudy9" path="/OnLineStudy9" reloadable="true" source="org.eclipse.jst.jee.server:OnLineStudy9"/></Host>
+      <Context docBase="OnLineStudy10" path="/OnLineStudy10" reloadable="true" source="org.eclipse.jst.jee.server:OnLineStudy10">
+      	<Resource
+         driverClassName="oracle.jdbc.driver.OracleDriver"
+           username="hr"
+           password="happy"
+           url="jdbc:oracle:thin:@211.238.142.183:1521:XE"
+           auth="Container"
+           name="jdbc/oracle"
+           type="javax.sql.DataSource"
+           maxActive="10"
+           maxIdle="10"
+           maxWait="-1"
+         />
+      </Context>
+      </Host>
     </Engine>
   </Service>
 </Server>
