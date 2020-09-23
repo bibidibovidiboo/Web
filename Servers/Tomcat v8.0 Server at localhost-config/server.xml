@@ -154,20 +154,9 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
       <Context docBase="OnLineStudy10" path="/OnLineStudy10" reloadable="true" source="org.eclipse.jst.jee.server:OnLineStudy10">
-      	<Resource
-         driverClassName="oracle.jdbc.driver.OracleDriver"
-           username="hr"
-           password="happy"
-           url="jdbc:oracle:thin:@211.238.142.183:1521:XE"
-           auth="Container"
-           name="jdbc/oracle"
-           type="javax.sql.DataSource"
-           maxActive="10"
-           maxIdle="10"
-           maxWait="-1"
-         />
+      	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="10" maxIdle="10" maxWait="-1" name="jdbc/oracle" password="happy" type="javax.sql.DataSource" url="jdbc:oracle:thin:@211.238.142.183:1521:XE" username="hr"/>
       </Context>
-      </Host>
+      <Context docBase="OnLineStudy11" path="/OnLineStudy11" reloadable="true" source="org.eclipse.jst.jee.server:OnLineStudy11"/></Host>
     </Engine>
   </Service>
 </Server>
