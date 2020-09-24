@@ -156,5 +156,41 @@
            ================
    -->
   <!-- 수정하기 -->
+  <update id="boardUpdate" parameterType="DataBoardVO">
+  	UPDATE databoard3 SET
+  	name=#{name},
+  	subject=#{subject},
+  	content=#{content}
+  	<include refid="where-no"/>
+  </update>
   <!-- 삭제하기 -->
-</mapper>
+  <select id="boardGetPassword" resultType="String" parameterType="int">
+  	SELECT pwd FROM databoard3
+  	<include refid="where-no"/>
+  </select>
+  <select id="boardGetInfoData" resultType="DataBoardVO" parameterType="int">
+  	SELECT filename,filesize FROM databoard3
+  	<include refid="where-no"/>
+  </select>
+  <!--  게시물이 삭제가 되면  -->
+  <select id="boardDelete" parameterType="int">
+  	DELETE FROM databoard3
+  	<include refid="where-no"/>
+  </select>
+  <!-- 찾기  -->
+  <!-- 
+  	${fd} => 컬럼명 , 테이블명 (name LIKE , subject LIKE , content LIKE)
+  	${ss} => 일반 데이터
+  
+   -->
+  <select id="boardFindData" resultType="DataBoardVO" parameterType="hashmap">
+  	SELECT no,subject,name,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit
+  	FROM databoard3
+  	WHERE ${fd} LIKE '%'||#{ss}||'%'
+  </select>
+  <select id="boardFindCount" resultType="int" parameterType="hashmap">
+  	SELECT COUNT(*) <!-- 이 조건에 해당하는게 몇개냐  -->
+  	FROM databoard3
+  	WHERE ${fd} LIKE '%'||#{ss}||'%'
+  </select>
+  </mapper>

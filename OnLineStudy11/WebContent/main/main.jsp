@@ -7,7 +7,9 @@
      1. 사용자가 화면 변경 요청 (숫자)
      
 --%>
+<%-- 화면 변경은 반드시 main에서 한다 ★ --%>
 <%
+     request.setCharacterEncoding("UTF-8");
      String mode=request.getParameter("mode"); // mode => 화면 변경 => 번호 보내준다 
      if(mode==null)
     	 mode="1";
@@ -19,16 +21,42 @@
             login.jsp  
           board
             list.jsp
+            
+            
+          ==> 경로 (폴더가 다르다) 
+              .. 상위 디렉토리 
     */
      switch(index)
      {
+     // 화면에 출력하는 JSP만 설정 
+     // insert_ok.jsp,download.jsp => 화면 출력하는 JSP아니라  처리만 담당 
+     /*
+          JSP 
+           => 데이터 읽어와서 화면 출력 
+           => 데이터 읽어와서 처리 담당 
+              ==================    _ok.jsp => 다른 화면으로 이동 
+     */
+     
+     // include 사용해서 공통되는 화면 처리 ★
+     // ./main/main.jsp?mode=5 여기 번호랑 같게 코딩
      case 1:
     	 jsp="../board/list.jsp"; // list.jsp => main
     	 break;
-     
      case 2:
-     	jsp="../board/insert.jsp";
-     	break;
+    	 jsp="../board/insert.jsp";
+    	 break;
+     case 3:
+    	 jsp="../board/detail.jsp";
+    	 break;
+     case 4:
+    	 jsp="../board/find.jsp";
+    	 break;
+     case 5:
+    	 jsp="../board/delete.jsp";
+    	 break;
+     case 6:
+    	 jsp="../board/update.jsp";
+    	 break;
      }
 %>
 <!DOCTYPE html>
