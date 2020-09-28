@@ -19,7 +19,7 @@
 </jsp:useBean>
 <%
 	// BoardDAO.freeBoardInsert(vo) => mapper.xql(SQL) ==> DAO (처리)
-	BoardDAO.freeBoartInsert(vo);
+	BoardDAO.freeBoardInsert(vo);
 	// 화면 이동
 	response.sendRedirect("../main/main.jsp?mode=9"); // freeboard/list.jsp
 %>
