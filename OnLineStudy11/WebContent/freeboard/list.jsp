@@ -1,6 +1,4 @@
-<%@page import="com.sist.dao.BoardDAO"%>
-<%@page import="com.sist.dao.BoardVO"%>
-<%@page import="java.util.List"%>
+<%@page import="java.util.*,com.sist.dao.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -16,7 +14,9 @@
 	}
 	int curpage=Integer.parseInt(strPage); // 현재 보고 있는 페이지
 	// 현재 출력할 내용 가지고 오기
+	Map map=new HashMap(); //
 	List<BoardVO> list=BoardDAO.freeBoardListData(map);
+	
 %>
 <!DOCTYPE html>
 <html>
