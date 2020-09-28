@@ -18,6 +18,8 @@
     	 mode="7"; // home에 출력 
      int index=Integer.parseInt(mode);
      String jsp=""; // 1=>a.jsp , 2.b.jsp...
+    		 
+    		 
     /*
           main  ===> board에 접근  ../board/jsp파일명
             main.jsp
@@ -43,19 +45,19 @@
     	 jsp="../board/list.jsp"; // list.jsp => main
     	 break;
      case 2:
-    	 jsp="../board/insert.jsp";
+    	 jsp="../board/insert.jsp";// insert_ok.jsp
     	 break;
      case 3:
-    	 jsp="../board/detail.jsp";
+    	 jsp="../board/detail.jsp";// download.jsp
     	 break;
      case 4:
     	 jsp="../board/find.jsp";
     	 break;
      case 5:
-    	 jsp="../board/delete.jsp";
+    	 jsp="../board/delete.jsp"; // delete_ok.jsp
     	 break;
      case 6:
-    	 jsp="../board/update.jsp";
+    	 jsp="../board/update.jsp"; // update_ok.jsp
     	 break;
      case 7:
     	 jsp="../movie/home.jsp";
@@ -64,12 +66,15 @@
     	 jsp="../movie/detail.jsp";
     	 break;
      case 9:
-    	 jsp="../freeboard/board.jsp";
+    	 jsp="../freeboard/list.jsp";
+    	 break;
+     case 10:  	 
+    	 jsp="../freeboard/insert.jsp";
     	 break;
      }
-          // 새로운 화면을 만들때 반드시 등록
+          // 새로운 화면을 만들때 반드시 등록 => 링크가 걸리면 해당 화면을 보여 주는 역할 
+          // 화면 변경 ==> Controller => java
 %>
-
 <!DOCTYPE html>
 <html>
 <head>

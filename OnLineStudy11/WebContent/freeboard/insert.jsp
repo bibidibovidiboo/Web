@@ -18,8 +18,7 @@
           multipart/form-data : 파일을 업로드 
                   범용적으로 사용되는 약속 
     --%>
-    <%--  enctype="multipart/form-data" => 데이터 업로드 때 사용 --%>
-   <form method="post" action="../board/insert_ok.jsp" enctype="multipart/form-data">
+   <form method="post" action="../freeboard/insert_ok.jsp">
    <table class="table table-hover">
      <tr>
        <th class="danger text-right" width=15%>이름</th>
@@ -37,12 +36,6 @@
        <th class="danger text-right" width=15%>내용</th>
        <td width=85%>
          <textarea rows="10" cols="50" name=content></textarea>
-       </td>
-     </tr>
-     <tr>
-       <th class="danger text-right" width=15%>첨부파일</th>
-       <td width=85%>
-         <input type=file name=upload size=20 class="input-sm">
        </td>
      </tr>
      <tr>
