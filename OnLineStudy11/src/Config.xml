@@ -10,6 +10,8 @@
   <typeAliases>
     <!-- VO를 등록 -->
     <typeAlias type="com.sist.dao.DataBoardVO" alias="DataBoardVO"/>
+    <typeAlias type="com.sist.dao.MovieVO" alias="MovieVO"/>
+    <typeAlias type="com.sist.dao.BoardVO" alias="BoardVO"/>
     <!-- 
                       오라클에서 가지고 오는 데이터를 받아서 저장 
             while(rs.next())
@@ -89,5 +91,9 @@
   <!-- XML만 가지고 코딩하는 프레임워크 : XML이 길어진다=>속도의 문제 (스트럿츠) : 스프링 -->
   <mappers>
     <mapper resource="com/sist/dao/databoard-mapper.xml"/><!-- 분산 여러개를 등록이 가능 -->
+    <mapper resource="com/sist/dao/movie-mapper.xml"/><!-- 분산 여러개를 등록이 가능 -->
+    <mapper resource="com/sist/dao/board-mapper.xml"/><!-- 분산 여러개를 등록이 가능 -->
+    
+    <!-- MovieVO , MovieDAO  -->
   </mappers>
 </configuration>

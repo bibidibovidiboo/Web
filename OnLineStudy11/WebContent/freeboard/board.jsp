@@ -1,66 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,com.sist.dao.*"%>
-<%-- 목록 출력 : list.jsp : board폴더 --%>
-<!-- 데이터를 읽어 온다 (1page)있는 게시물  -->
-<%
-     // DAO를 생성 => DAO를 통해서 데이터를 얻어온다 
-     // static으로 메소드=> 이미 메모리에 저장 
-     // 사용자로부터 페이지를 받아 본다 
-     String strPage=request.getParameter("page");
-     if(strPage==null) // 페이지를 보내지 않을 경우 (맨처음에는 페이지를 보낼 수 없다)
-    	 strPage="1";// 시작페이지를 설정해 준다 
-     int curpage=Integer.parseInt(strPage);
-     // start:1 , end:10
-     Map map=new HashMap();
-     int rowSize=10;
-     int start=(curpage*rowSize)-(rowSize-1);
-     int end=curpage*rowSize;
-     // map에 저장 => map 저장하는 공간 => 키,값을 설정 할 수 있다 
-     map.put("start",start);
-     map.put("end",end);
-     List<DataBoardVO> list=DataBoardDAO.boardListData(map);// 1page 1~10
-     // 총페이지읽기
-     int totalpage=DataBoardDAO.boardTotalPage();
-     // 화면에 출력 
-     // 데이터 읽기 : 파일,XML,JSON,database(오라클),웹크롤링(날씨,인기검색어)
-     // database(오라클):일반 JDBC,DBCP,***ORM(Mybatis:실무)
-%>
+    pageEncoding="UTF-8" import="com.sist.dao.*,java.util.*"%>
+ <%
+ 
+ 	String strPage= request.getParameter("page");
+ 	if(strPage==null)
+ 		strPage="1";
+ 	int curpage=Integer.parseInt(strPage);
+ 	
+ 	Map map = new HashMap();
+    int rowSize=10;
+    int start=(curpage*rowSize)-(rowSize-1);
+    int end=curpage*rowSize;
+    
+ 	map.put("start",start);
+ 	map.put("end",end);
+ 	
+ 	List<BoardVO> list = BoardDAO.freeBoardData(map);
+ 	
+ 	System.out.println("이름"+list.size());
+ 	int total = BoardDAO.freeboardTotalPage();
+ 	
+ %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript">
-function send()
-{
-	//자바 스크립트는 변수 종류가 없다 (var:자동 지정 변수)
-	/*
-		var a=10; var=int
-		var b=10.0 ; var =double
-		var c='a'; char
-		var d="aaa"; String
-		var e=[]; Array
-		var k={}; ojbect
-	
-	*/
-	var f=document.frm;
-		//반드시 입력할수 있게 만든다.
-	if(f.ss.value=="")
-	{
-		f.ss.focus();
-		return;
-	}
-	f.submit(); // submit버튼과 동일한 역할 => Jquert => NodeJs => Reactjs => vuejs => typescript 순서
-}
-</script>
 </head>
 <body>
    <div class="row">
-     <h1 class="text-center">자료실</h1>
+     <h1 class="text-center">게시판</h1>
      <table class="table">
        <tr>
          <td>
-           <a href="main.jsp?mode=2" class="btn btn-sm btn-success">새글</a>
+           <a href="#" class="btn btn-sm btn-success">새글</a>
            <%-- 메뉴 , 로그인 , footer 고정 => main.jsp --%>
          </td>
        </tr>
@@ -79,7 +52,7 @@ function send()
                private String dbday; =>dbday값을 채운다 
                name,TO_CHAR(regdate,'YYYY-MM-DD') as dbday => mapper 
            */
-           for(DataBoardVO vo:list)
+           for(BoardVO vo:list)
            {
         	   	/*
         	   		../main/main.jsp?mode=3&no=1
@@ -101,7 +74,7 @@ function send()
 		         --%>
 		         </td>
 		         <td class="text-center" width=15%><%=vo.getName() %></td>
-		         <td class="text-center" width=20%><%=vo.getDbday() %></td>
+		         <td class="text-center" width=20%><%=vo.getRegdate() %></td>
 		         <td class="text-center" width=10%><%=vo.getHit() %></td>
 		       </tr>
        <%
@@ -131,11 +104,6 @@ function send()
 	            onclick="send()"
 	          >
           </form>
-         </td>
-         <td class="text-right">
-          <a href="#" class="btn btn-sm btn-primary">이전</a>
-           <%=curpage %> page / <%=totalpage %> pages
-          <a href="#" class="btn btn-sm btn-primary">다음</a>
          </td>
        </tr>
      </table>

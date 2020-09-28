@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.dao.board-mapper">
+<!-- SQL문장이 저장된다. -->
+<!-- 
+	목록
+	추가 ====> getParameter() (X) : vo에 값을 채워준다
+	상세보기
+	수정 ====>
+	삭제
+ -->
+
+    <sql id="where-no">
+    WHERE no=#{no}
+  </sql>
+  <select id="freeboardListData" resultType="BoardVO" parameterType="hashmap">
+     SELECT no,subject,name,TO_CHAR(regdate,'YYYY-MM-DD') as regdate,hit,num 
+     FROM (SELECT no,subject,name,regdate,hit,rownum as num 
+     FROM (SELECT no,subject,name,regdate,hit 
+     FROM movie_board3 ORDER BY no DESC))
+     WHERE num BETWEEN #{start} AND #{end}
+     <!-- start , end => Map에 설정한 key이름 
+          get("start")
+         String sql= "SELECT no,subject,name,regdate,hit,num 
+				     FROM (SELECT no,subject,name,regdate,hit,rownum as num 
+				     FROM (SELECT no,subject,name,regdate,hit 
+				     FROM databoard ORDER BY no DESC))
+				     WHERE num BETWEEN ? AND ?"
+	     
+	     ps=conn.preparedStatement(sql);
+	     // 실행하지 전에  ?에 값을 채운다 
+	     ps.setInt(1,map.get("start")); ==> parameterType
+	     ps.setInt(2,map.get("end"))
+	     ==> Map
+	     map.put("end",10);
+	     map.put("start",1);
+	     
+	     ResultSet rs=ps.executeQuery();
+	     while(rs.next())
+	     {
+	         DataBoardVO vo=new DataBoardVO(); => resultType
+	     }
+     -->
+  </select>
+  <select id="freeboardTotalPage" resultType="int" >
+  	SELECT CEIL(COUNT(*)/10.0) FROM movie_board3
+  </select>
+</mapper>

@@ -7,12 +7,15 @@
      1. 사용자가 화면 변경 요청 (숫자)
      
 --%>
-<%-- 화면 변경은 반드시 main에서 한다 ★ --%>
+<%--
+      사용자가 요청시마다 jsp파일을 변경해주는 역할 수행   => Controller (M(Java)V(HTML)C)
+      소스 코딩은 동일 
+ --%>
 <%
      request.setCharacterEncoding("UTF-8");
      String mode=request.getParameter("mode"); // mode => 화면 변경 => 번호 보내준다 
      if(mode==null)
-    	 mode="1";
+    	 mode="7"; // home에 출력 
      int index=Integer.parseInt(mode);
      String jsp=""; // 1=>a.jsp , 2.b.jsp...
     /*
@@ -36,9 +39,6 @@
            => 데이터 읽어와서 처리 담당 
               ==================    _ok.jsp => 다른 화면으로 이동 
      */
-     
-     // include 사용해서 공통되는 화면 처리 ★
-     // ./main/main.jsp?mode=5 여기 번호랑 같게 코딩
      case 1:
     	 jsp="../board/list.jsp"; // list.jsp => main
     	 break;
@@ -57,8 +57,19 @@
      case 6:
     	 jsp="../board/update.jsp";
     	 break;
+     case 7:
+    	 jsp="../movie/home.jsp";
+    	 break;
+     case 8:
+    	 jsp="../movie/detail.jsp";
+    	 break;
+     case 9:
+    	 jsp="../freeboard/board.jsp";
+    	 break;
      }
+          // 새로운 화면을 만들때 반드시 등록
 %>
+
 <!DOCTYPE html>
 <html>
 <head>

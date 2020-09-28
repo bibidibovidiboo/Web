@@ -46,14 +46,14 @@
    <!-- 
        hashmap => java.util.Map
     -->
-    <select id="boardListData" resultType="DataBoardVO" parameterType="hashmap">
+  <select id="boardListData" resultType="DataBoardVO" parameterType="hashmap">
      SELECT no,subject,name,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,num 
      FROM (SELECT no,subject,name,regdate,hit,rownum as num 
      FROM (SELECT no,subject,name,regdate,hit 
      FROM databoard3 ORDER BY no DESC))
      WHERE num BETWEEN #{start} AND #{end}
      <!-- start , end => Map에 설정한 key이름 
-     
+          get("start")
          String sql= "SELECT no,subject,name,regdate,hit,num 
 				     FROM (SELECT no,subject,name,regdate,hit,rownum as num 
 				     FROM (SELECT no,subject,name,regdate,hit 
@@ -75,7 +75,7 @@
 	     }
      -->
   </select>
- <select id="boardTotalPage" resultType="int">
+  <select id="boardTotalPage" resultType="int">
     SELECT CEIL(COUNT(*)/10.0) FROM databoard3
   </select>
   <!-- 내용보기 : 다운로드 -->
@@ -156,41 +156,53 @@
            ================
    -->
   <!-- 수정하기 -->
-  <update id="boardUpdate" parameterType="DataBoardVO">
-  	UPDATE databoard3 SET
-  	name=#{name},
-  	subject=#{subject},
-  	content=#{content}
-  	<include refid="where-no"/>
-  </update>
+	<update id="boardUpdate" parameterType="DataBoardVO">
+	UPDATE databoard3 SET
+	name=#{name},
+	subject=#{subject},
+	content=#{content}
+	<include refid="where-no"/>
+	</update>
   <!-- 삭제하기 -->
+  <!-- 비밀번호 확인 -->
   <select id="boardGetPassword" resultType="String" parameterType="int">
-  	SELECT pwd FROM databoard3
-  	<include refid="where-no"/>
+    SELECT pwd FROM databoard3
+    <include refid="where-no"/>
   </select>
+  <!-- 게시물이 삭제가 되면 업로드된 파일을 삭제 -->
   <select id="boardGetInfoData" resultType="DataBoardVO" parameterType="int">
-  	SELECT filename,filesize FROM databoard3
-  	<include refid="where-no"/>
+    SELECT filename,filesize FROM databoard3
+    <include refid="where-no"/>
   </select>
-  <!--  게시물이 삭제가 되면  -->
-  <select id="boardDelete" parameterType="int">
-  	DELETE FROM databoard3
-  	<include refid="where-no"/>
-  </select>
-  <!-- 찾기  -->
+  <!-- 본인일 경우에는 게시물을 삭제 -->
+  <delete id="boardDelete" parameterType="int">
+    DELETE FROM databoard3
+    <include refid="where-no"/>
+  </delete>
+  <!-- 찾기 -->
   <!-- 
-  	${fd} => 컬럼명 , 테이블명 (name LIKE , subject LIKE , content LIKE)
-  	${ss} => 일반 데이터
+  mapper에서 sql문 사용할 시에
+	${fd} => 컬럼명,테이블명 (name LIKE, subject LIKE, content LIKE)
+	#{ss} => 일반 데이터      
   
    -->
   <select id="boardFindData" resultType="DataBoardVO" parameterType="hashmap">
-  	SELECT no,subject,name,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit
+  	SELECT no,subject,name,TO_CHAR(regdate,'YYY-MM-DD') as dbday,hit
   	FROM databoard3
   	WHERE ${fd} LIKE '%'||#{ss}||'%'
   </select>
+  
   <select id="boardFindCount" resultType="int" parameterType="hashmap">
-  	SELECT COUNT(*) <!-- 이 조건에 해당하는게 몇개냐  -->
+  	SELECT COUNT(*)
   	FROM databoard3
   	WHERE ${fd} LIKE '%'||#{ss}||'%'
   </select>
-  </mapper>
+</mapper>
+
+
+
+
+
+
+
+
