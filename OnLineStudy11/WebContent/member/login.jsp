@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+   <form method=post action="../member/login_ok.jsp">
+   <%--
+       method => get/post
+       action => 데이터를 받을 파일명
+    --%>
+    <%--
+		method => get / post 
+		(감춰서 보내주냐 아니냐 차이 => login 감춰서 보내야해서 post)
+		action => 데이터를 받을 파일명
+	 --%>
    <table class="table">
      <tr>
        <td class="text-right">ID</td>
@@ -22,9 +32,10 @@
      </tr>
      <tr>
        <td class="text-right" colspan="2">
-         <input type=button value="로그인" class="btn btn-sm btn-success">
+         <input type=submit value="로그인" class="btn btn-sm btn-success">
        </td>
      </tr>
    </table>
+   </form>
 </body>
 </html>

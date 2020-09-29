@@ -1,81 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.sist.dao.*"%>
 <%
+    // 사용자 요청한 영화번호 받는다 
     String no=request.getParameter("no");
-    BoardVO vo=BoardDAO.freeBoardDetailData(Integer.parseInt(no));
+    // 영화번호(no)에 해당되는 영화정보 가지고 와서 출력
+    // DAO를 이용해서 처리 
+    MovieVO vo=MovieDAO.movieDetailData(Integer.parseInt(no));
+    // response => HTML만 전송 받는 역할 
+
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- JQUERY : 라이브러리  (라이브러리 로드 :import)-->
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script type="text/javascript">
-var i=0;
-$(function(){ // main
-	$('#delBtn').click(function(){
-		if(i==0)
-		{
-			$('#del').show();
-			$('#delBtn').val("취소");
-			i=1;
-		}
-		else
-		{
-			$('#del').hide();
-			$('#delBtn').val("삭제");
-			i=0;
-		}
-	});
-});
-</script>
 </head>
 <body>
-   <%-- DAO에서 값을 가지고 온다 : board-mapper.xml에서 SQL문장을 작성  --%>
-   <div class="row">
-     <h1 class="text-center">내용보기</h1>
-     <table class="table table-striped">
-       <tr>
-         <th class="text-center danger" width=20%>번호</th>
-         <td class="text-center" width=30%><%=vo.getNo() %></td>
-         <th class="text-center danger" width=20%>작성일</th>
-         <td class="text-center" width=30%><%=vo.getDbday() %></td>
-       </tr>
-       <tr>
-         <th class="text-center danger" width=20%>이름</th>
-         <td class="text-center" width=30%><%=vo.getName() %></td>
-         <th class="text-center danger" width=20%>조회수</th>
-         <td class="text-center" width=30%><%=vo.getHit() %></td>
-       </tr>
-       <tr>
-         <th class="text-center danger" width=20%>제목</th>
-         <td colspan="3"><%=vo.getSubject() %></td>
-       </tr>
-       <tr>
-         <td colspan="4" class="text-left" valign="top" height=200>
-          <%-- 한줄 문자열 --%>
-          <pre style="white-space: pre-wrap;background-color:white;border:none"><%=vo.getContent() %></pre>
-         </td>
-       </tr>
-       <tr>
-         <td colspan="4" class="text-right">
-           <%-- ../main/main.jsp?mode=6 --%>
-           <%-- ../board/update.jsp --%>
-           <a href="../main/main.jsp?mode=12&no=<%=vo.getNo() %>" class="btn btn-xs btn-primary">수정</a>
-           <%-- ../board/delete.jsp --%>
-           <input type="button" class="btn btn-xs btn-success" id="delBtn" value="삭제">
-           <%-- ../board/list.jsp --%>
-           <a href="../main/main.jsp?mode=9" class="btn btn-xs btn-danger">목록</a>
-         </td>
-       </tr>
-       <tr id="del" style="display:none">
-          <td colspan="4" class="text-right">
-                    비밀번호:<input type=password class="input-sm" size=10 id="pwd">
-                  <input type=submit value="삭제하기" class="btn btn-sm btn-danger">
-          </td>
-       </tr>
-     </table>
-   </div>
+  <div class="row">
+    <h1 class="text-center">&lt;<%=vo.getTitle() %>&gt;상세보기</h1>
+    <%-- 영화 상세보기 출력 --%>
+    <table class="table">
+      <tr>
+        <td>
+          <%-- <embed> <iframe> : youtube보안 --%>
+          <iframe src="http://youtube.com/embed/<%=vo.getKey()%>" width=850 height=450></iframe>
+        </td>
+      </tr>
+    </table>
+    <table class="table">
+      <tr>
+        <td width=30% class="text-center" rowspan="7">
+          <img src="<%=vo.getPoster() %>" width=100%>
+        </td>
+        <td colspan="2"><font color=orange><%=vo.getTitle() %></font></td>
+      </tr>
+      <tr>
+        <td width=10%>감독</td>
+        <td width=60%><%=vo.getDirector() %></td>
+      </tr>
+      <tr>
+        <td width=10%>출연</td>
+        <td width=60%><%=vo.getActor() %></td>
+      </tr>
+      <tr>
+        <td width=10%>장르</td>
+        <td width=60%><%=vo.getGenre() %></td>
+      </tr>
+      <tr>
+        <td width=10%>등급</td>
+        <td width=60%><%=vo.getGrade() %></td>
+      </tr>
+      <tr>
+        <td width=10%>개봉일</td>
+        <td width=60%><%=vo.getRegdate() %></td>
+      </tr>
+      <tr>
+        <td width=10%>평점</td>
+        <td width=60%><%=vo.getScore() %></td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <pre style="white-space: pre-wrap;background-color:white;border:none"><%=vo.getStory() %></pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="row">
+    <div class="text-right">
+      <a href="#" class="btn btn-lg btn-primary">예매하기</a>
+      <a href="#" class="btn btn-lg btn-danger">찜하기</a>
+      <a href="../main/main.jsp" class="btn btn-lg btn-warning">목록</a>
+    </div>
+  </div>
 </body>
 </html>
