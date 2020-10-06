@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.sist.dao.*"%>
 <%
-    // 1. 사용자가 보낸 id,pwd
+	// 1. 사용자가 보낸 id,pwd
     String id=request.getParameter("id");
     //<input type=text class="input-sm" name=id> => hong
     //
