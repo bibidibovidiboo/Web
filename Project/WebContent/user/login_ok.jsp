@@ -20,7 +20,7 @@
 	// id가 존재 => 비밀번호가 틀린 경우 로그인창으로 이동하기 
 	else if(vo.getMsg().equals("NOPWD")){
 %>
-	<script>
+		<script>
     	alert("비밀번호가 틀립니다");
     	history.back();
     	</script>

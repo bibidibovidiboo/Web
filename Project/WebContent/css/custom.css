@@ -1,0 +1,24 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+*{
+font-family : 'Nanum Gothic';
+}
+h1{
+	font-family : 'Hanna';
+}
+.jumbotron {
+	background-color: #fff;
+}
+.jumbotron h1 {
+	text-align: center;
+	margin-top: 180px;
+}
+.junbotron h3 {
+	font-size: 30px;
+}
+.navbar-nav>li span{
+	margin-left: 4px;
+}
+.login .jumbotron{
+	margin-top: 100px;
+}

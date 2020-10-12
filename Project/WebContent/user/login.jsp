@@ -6,17 +6,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/custom.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <title>로그인</title>
 </head>
 <body>
-	<div class="logout container-fluid">
+	<div class="login container-fluid">
 		<div class="col-lg-4"></div>
 		<div class="col-lg-4">
-			<div class="jumbotron" style="padding-top: 20px">
+			<div class="jumbotron">
 				<form method=post action="../user/login_ok.jsp">
-					<h3 style="text-align: center">로그인화면</h3>
+					<h3 style="text-align: center">로그인</h3>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="아이디"
 							name="id" maxlength="20">
