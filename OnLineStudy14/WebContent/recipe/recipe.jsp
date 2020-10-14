@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.sist.model.*"%>
+    pageEncoding="UTF-8" import="com.sist.mode.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- RecipeModel을 메모리 할당  --%>
-<jsp:useBean id="model" class="com.sist.model.RecipeModel"/>
+<jsp:useBean id="model" class="com.sist.mode.RecipeModel"/>
 <%
       model.recipeListData(request); // 처리후에 결과값을 넘겨 받는다 
       /*

@@ -1,9 +1,9 @@
   
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.sist.model.*"%>
+    pageEncoding="UTF-8" import="com.sist.mode.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<jsp:useBean id="model" class="com.sist.model.RecipeModel"/>
+<jsp:useBean id="model" class="com.sist.mode.RecipeModel"/>
 <%
     model.chefListData(request);
 %>
