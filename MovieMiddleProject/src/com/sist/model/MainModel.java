@@ -8,7 +8,7 @@ public class MainModel {
   @RequestMapping("main/main.do")
   public String main_page(HttpServletRequest request)
   {
-	  request.setAttribute("msg", "MainÆäÀÌÁö");
+	  request.setAttribute("main_jsp", "../main/home.jsp");
 	  return "../main/main.jsp";
   }
 }

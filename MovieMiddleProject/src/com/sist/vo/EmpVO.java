@@ -1,16 +1,16 @@
 package com.sist.vo;
 import java.util.*;
 public class EmpVO {
-	private int empno;
-	private String ename;
-	private String job;
-	private int mgr;
-	private Date hiredate;
-	private int sal;
-	private int comm;
-	private int deptno;
-	private DeptVO dvo=new DeptVO(); // 클래스 자체를 포함 (join)
-	
+    private int empno;
+    private String ename;
+    private String job;
+    private int mgr;
+    private Date hiredate;
+    private int sal;
+    private int comm;
+    private int deptno;
+    private DeptVO dvo=new DeptVO();
+    
 	public DeptVO getDvo() {
 		return dvo;
 	}
@@ -66,4 +66,5 @@ public class EmpVO {
 	public void setDeptno(int deptno) {
 		this.deptno = deptno;
 	}
+   
 }

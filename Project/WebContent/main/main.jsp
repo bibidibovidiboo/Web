@@ -39,13 +39,13 @@
 			%>
 			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<a href="../user/join.jsp">
+					<a href="../member/join.jsp">
 						<span class="glyphicon glyphicon-user"></span> 
 						<span> SIGN UP</span>
 					</a>
 				</li>
 				<li>
-					<a href="../user/login.jsp">
+					<a href="../member/login.jsp">
 						<span class="glyphicon glyphicon-log-in"></span> 
 						<span> LOGIN</span>
 					</a>
@@ -58,7 +58,7 @@
 			%>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a><%=session.getAttribute("name")%>님</span></a></li>
-				<li><a href="../user/logout_ok.jsp"><span
+				<li><a href="../member/logout_ok.jsp"><span
 						class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
 			</ul>
 			<%
