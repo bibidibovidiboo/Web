@@ -24,6 +24,7 @@
 	<!--  container -->
 	<div class="container-fluid">
 		<jsp:include page="${main_jsp }" />
+		
 	</div>
 
 	<!--  footer  -->

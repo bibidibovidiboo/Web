@@ -36,27 +36,27 @@
 	                  aria-expanded="false">홈트샵</a>
 	                <ul class="dropdown-menu">
 	                <!-- category.html -->
-	                  <li class="nav-item"><a class="nav-link" href="">식단</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="single-product.html">건강간식</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="checkout.html">식사대용</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="confirmation.html">단백질보충</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="cart.html">체지방관리</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="cart.html">헬스케어</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=1">식단</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=2">건강간식</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=3">식사대용</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=4">단백질보충</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=5">체지방관리</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=6">헬스케어</a></li>
 	                </ul>
 				  </li>
 	              <li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">코치</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="blog.html">코치소개</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="single-blog.html">아돈노</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../coach/coachlist.do">코치소개</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="single-blog.html">Q&N</a></li>
 	                </ul>
 				</li>
 				<li class="nav-item submenu dropdown">
 	                <a href="../challenge/Challenge.do" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">함께도전해요</a>
 	                <ul class="dropdown-menu">
-	                <li class="nav-item"><a class="nav-link" href="tracking-order.html">전체</a></li>
+	                <li class="nav-item"><a class="nav-link" href="../challenge_room/list.do">전체</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="../challenge/Challenge.do">식단챌린지</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="register.html">운동챌린지</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">기타</a></li>
