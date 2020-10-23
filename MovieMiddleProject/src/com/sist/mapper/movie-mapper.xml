@@ -80,11 +80,6 @@
     SELECT * FROM daum_movie
     WHERE no=#{no}
   </select>
-  
-  <select id="movieReserveData" resultType="MovieVO">
-    SELECT no,title,poster,theater_no 
-    FROM movie_info
-  </select>
 </mapper>
 
 
