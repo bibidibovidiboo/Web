@@ -4,10 +4,6 @@ import java.util.*;
 import org.apache.ibatis.io.*;
 import org.apache.ibatis.session.*;
 import com.sist.vo.MemberVO;
-/* 
- * @author 이보미
- * 
- */
 public class MemberDAO {
 	// XML을 읽어서 데이터를 저장하는 객체 => 공통모듈 
 	private static SqlSessionFactory ssf;

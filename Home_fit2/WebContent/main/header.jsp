@@ -74,7 +74,7 @@
 	            </ul>
 	
 	             <ul class="nav-shop" id="nav-user">
-	              <li class="nav-item"><button><a class="#" href="">로그인</a></button></li>
+	              <li class="nav-item"><button><a class="#" href="../member/login.do">로그인</a></button></li>
 	              <li class="nav-item">/</li>
 	              <li class="nav-item"><button><a class="#" href="">회원가입</a></button></li>
 	              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">1</span></button> </li>
