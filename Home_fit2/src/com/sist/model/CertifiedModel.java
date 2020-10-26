@@ -191,7 +191,7 @@ public class CertifiedModel {
 	}
 
 	//로그아웃 버튼  임시로 구현함.  2020-10-23
-	   @RequestMapping("member/logout.do")
+	   @RequestMapping("member2/logout.do")
 	   public String member_logout(HttpServletRequest request)
 	   {
 		   HttpSession session=request.getSession();

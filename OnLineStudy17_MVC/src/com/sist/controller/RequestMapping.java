@@ -8,35 +8,35 @@ import java.lang.annotation.Target;
 
 @Retention(RUNTIME)
 /*
- *   ¸Ş¸ğ¸® À¯Áö 
+ *   ë©”ëª¨ë¦¬ ìœ ì§€ 
  *   CLASS
  *   SOURCE
- *   ================ ÄÄÆÄÀÏÈÄ¿¡ ¸Ş¸ğ¸® ÇØÁ¦ 
+ *   ================ ì»´íŒŒì¼í›„ì— ë©”ëª¨ë¦¬ í•´ì œ 
  *   RUNTIME
- *   ================ ÄÄÆÄÀÏÈÄ¿¡µµ ¸Ş¸ğ¸® À¯Áö
+ *   ================ ì»´íŒŒì¼í›„ì—ë„ ë©”ëª¨ë¦¬ ìœ ì§€
  */
 @Target(METHOD)
 /*
  *   Annotation 
- *    1. ±â´ÉÀÌ ¾ø´Ù 
- *    2. Ã£±â 
- *       = TYPE  ====> Å¬·¡½º¸¦ Ã£´Â °æ¿ì
- *       = PARAMETER => ¸Å°³º¯¼ö¸¦ Ã£´Â °æ¿ì
- *       = CONSTRUCTOR => »ı¼ºÀÚ Ã£´Â °æ¿ì
- *       = FILED  => ¸â¹öº¯¼ö Ã£´Â °æ¿ì
- *       = METHOD => ¸Ş¼Òµå Ã£´Â °æ¿ì 
- *    ================================= À§Ä¡ (Annotation)
- *    @Annotation¸í  ==> TYPE
+ *    1. ê¸°ëŠ¥ì´ ì—†ë‹¤ 
+ *    2. ì°¾ê¸° 
+ *       = TYPE  ====> í´ë˜ìŠ¤ë¥¼ ì°¾ëŠ” ê²½ìš°
+ *       = PARAMETER => ë§¤ê°œë³€ìˆ˜ë¥¼ ì°¾ëŠ” ê²½ìš°
+ *       = CONSTRUCTOR => ìƒì„±ì ì°¾ëŠ” ê²½ìš°
+ *       = FILED  => ë©¤ë²„ë³€ìˆ˜ ì°¾ëŠ” ê²½ìš°
+ *       = METHOD => ë©”ì†Œë“œ ì°¾ëŠ” ê²½ìš° 
+ *    ================================= ìœ„ì¹˜ (Annotation)
+ *    @Annotationëª…  ==> TYPE
  *    public class MovieModel
  *    {
- *         @Annotation¸í  ==> FILED
+ *         @Annotationëª…  ==> FILED
  *         MovieDAO dao=new MovieDAO();
  *         
- *         @Annotation¸í  ==> CONSTRUCTOR
- *         public MovieModel(@Annotation¸í  ==> PARAMETER int a)
+ *         @Annotationëª…  ==> CONSTRUCTOR
+ *         public MovieModel(@Annotationëª…  ==> PARAMETER int a)
  *         {
  *         }
- *         @Annotation¸í  ==> METHOD
+ *         @Annotationëª…  ==> METHOD
  *         public void display()
  *         {
  *         }
@@ -46,5 +46,7 @@ import java.lang.annotation.Target;
  *    public String movieListData(HttpServletRequest request)
  */
 public @interface RequestMapping {
-   public String value(); // ¹®ÀÚ¿­·Î ±¸ºĞ 
+   public String value(); // ë¬¸ìì—´ë¡œ êµ¬ë¶„ 
 }
+
+

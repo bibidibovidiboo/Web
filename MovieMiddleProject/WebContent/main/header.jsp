@@ -169,6 +169,6 @@ $(function(){
 </div>
 <div id="dialog" style="display:none">
   <jsp:include page="../member/login.jsp"></jsp:include> 
-</div>
+</div> 
 </body>
 </html>

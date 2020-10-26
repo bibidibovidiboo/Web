@@ -1,5 +1,7 @@
 package com.sist.model;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.sist.controller.RequestMapping;
 /**
  * @author 이보미

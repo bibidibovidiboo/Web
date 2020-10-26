@@ -5,29 +5,31 @@ import javax.servlet.http.HttpServletRequest;
 import com.sist.controller.RequestMapping;
 
 /*
- *   1. ¿µÈ­¸ñ·Ï
- *   2. ±ØÀå¸ñ·Ï
+ *   1. ì˜í™”ëª©ë¡
+ *   2. ê·¹ì¥ëª©ë¡
  *   ===========
- *   3. ³¯Â¥Á¤º¸
- *   4. ½Ã°£Á¤º¸
- *   5. ÀÎ¿øÁ¤º¸
- *   6. ¿¹¸ÅÁ¤º¸ 
+ *   3. ë‚ ì§œì •ë³´
+ *   4. ì‹œê°„ì •ë³´
+ *   5. ì¸ì›ì •ë³´
+ *   6. ì˜ˆë§¤ì •ë³´ 
  */
 public class ReserveModel {
 	 @RequestMapping("reserve/movie.do")
      public String movieList(HttpServletRequest request)
      {
-    	 // °ªÀü¼Û(jsp) ==> request¿¡ ´ã¾ÆÁØ´Ù 
-    	 request.setAttribute("msg", "¿¹¸Å=>¿µÈ­Á¤º¸");
+    	 // ê°’ì „ì†¡(jsp) ==> requestì— ë‹´ì•„ì¤€ë‹¤ 
+    	 request.setAttribute("msg", "ì˜ˆë§¤=>ì˜í™”ì •ë³´");
     	 request.setAttribute("main_jsp", "../reserve/movie.jsp");
-   	     return "../main/main.jsp";// request¸¦ Àü¼ÛÇÒ jspÆÄÀÏ¸í 
+   	     return "../main/main.jsp";// requestë¥¼ ì „ì†¡í•  jspíŒŒì¼ëª… 
      }
 	 @RequestMapping("reserve/theater.do")
      public String theaterList(HttpServletRequest request)
      {
-    	 request.setAttribute("msg", "¿¹¸Å=>±ØÀåÁ¤º¸");
+    	 request.setAttribute("msg", "ì˜ˆë§¤=>ê·¹ì¥ì •ë³´");
     	 request.setAttribute("main_jsp", "../reserve/theater.jsp");
-   	     return "../main/main.jsp";// request¸¦ Àü¼ÛÇÒ jspÆÄÀÏ¸í 
+   	     return "../main/main.jsp";// requestë¥¼ ì „ì†¡í•  jspíŒŒì¼ëª… 
      }
 }
+
+
 

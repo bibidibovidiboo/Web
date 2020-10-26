@@ -28,21 +28,21 @@ public class Controller extends HttpServlet {
 				// /OnLineStudy17_MVC/movie/detail.jsp
 				// movie/detail.do
 				cmd=cmd.substring(request.getContextPath().length()+1);
-				// AnnotationÃ£´Â ¹æ¹ı 
+				// Annotationì°¾ëŠ” ë°©ë²• 
 				for(String strCls:list)
 				{
-				    // ¸Ş¸ğ¸® ÇÒ´ç 
+				    // ë©”ëª¨ë¦¬ í• ë‹¹ 
 					Class clsName=Class.forName(strCls);
 					Object obj=clsName.newInstance();
-					// ¸Ş¼Òµå Ã£±â
+					// ë©”ì†Œë“œ ì°¾ê¸°
 					Method[] methods=clsName.getDeclaredMethods();
 					for(Method m:methods)
 					{
 						RequestMapping rm=m.getAnnotation(RequestMapping.class);
-						// ¾î³ëÅ×ÀÌ¼ÇÀ» ÀÌ¿ëÇØ¼­ ÇØ´ç ¸Ş¼Òµå Ã£±â
+						// ì–´ë…¸í…Œì´ì…˜ì„ ì´ìš©í•´ì„œ í•´ë‹¹ ë©”ì†Œë“œ ì°¾ê¸°
 						if(cmd.equals(rm.value()))
 						{
-							// ÇØ´ç ¸Ş¼Òµå È£Ãâ 
+							// í•´ë‹¹ ë©”ì†Œë“œ í˜¸ì¶œ 
 							String jsp=(String)m.invoke(obj, request);
 							if(jsp.startsWith("redirect"))
 							{
@@ -51,16 +51,18 @@ public class Controller extends HttpServlet {
 							}
 							else
 							{
-								// request¸¦ Àü´Ş 
+								// requestë¥¼ ì „ë‹¬ 
 								RequestDispatcher rd=request.getRequestDispatcher(jsp);
 								rd.forward(request, response);
 							}
-							return;//service¸Ş¼Òµå Á¾·á 
+							return;//serviceë©”ì†Œë“œ ì¢…ë£Œ 
 						}
 					}
 					
 				}
-		}catch(Exception ex){}
+		}catch(Exception ex){ex.printStackTrace();}
 	}
 
 }
+
+

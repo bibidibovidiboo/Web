@@ -4,7 +4,7 @@ import java.util.*;
 class A
 {
 	@RequestMapping("aaa.do")
-	// Áßº¹ÇÒ ¼ö ¾ø´Ù ==> ¾î³ëÅ×ÀÌ¼Ç => if¹®À» Ãß°¡ÇÏ´Â °ÍÀÌ´Ù 
+	// ì¤‘ë³µí•  ìˆ˜ ì—†ë‹¤ ==> ì–´ë…¸í…Œì´ì…˜ => ifë¬¸ì„ ì¶”ê°€í•˜ëŠ” ê²ƒì´ë‹¤ 
 	public void aaa()
 	{
 		System.out.println("A:aaa() Call...");
@@ -31,7 +31,7 @@ public class MainClass {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         Scanner scan=new Scanner(System.in);
-        System.out.print("»çÀÌÆ®ÁÖ¼Ò ÀÔ·Â:");// getRequestURI()
+        System.out.print("ì‚¬ì´íŠ¸ì£¼ì†Œ ìž…ë ¥:");// getRequestURI()
         String cmd=scan.next();
         
 		/*
@@ -41,29 +41,31 @@ public class MainClass {
 		 */
         try
         {
-        	// Å¬·¡½ºÀÇ ¸ðµç Á¤º¸¸¦ ÀÐ¾î ¿Â´Ù 
+        	// í´ëž˜ìŠ¤ì˜ ëª¨ë“  ì •ë³´ë¥¼ ì½ì–´ ì˜¨ë‹¤ 
         	Class clsName=Class.forName("com.sist.controller.A");
-        	// ¸Þ¸ð¸® ÇÒ´ç 
+        	// ë©”ëª¨ë¦¬ í• ë‹¹ 
         	Object obj=clsName.newInstance();
-        	// AÅ¬·¡½º°¡ °¡Áö°í ÀÖ´Â ¸ðµç ¸Þ¼Òµå¸¦ ÀÐ¾î ¿Â´Ù 
+        	// Aí´ëž˜ìŠ¤ê°€ ê°€ì§€ê³  ìžˆëŠ” ëª¨ë“  ë©”ì†Œë“œë¥¼ ì½ì–´ ì˜¨ë‹¤ 
         	Method[] methods=clsName.getDeclaredMethods();
         	for(Method m:methods)
         	{
-        		// System.out.println(m.getName());// AÅ¬·¡½º¿¡ ¼±¾ðµÇ¾î ÀÖ´Â ¸Þ¼ÒµåÀÌ¸§À» °¡Áö°í ¿Â´Ù
-        		// MethodÀ§¿¡ ÀÖ´Â Annotation¸¦ ÀÐ´Â´Ù 
-        		// ¾î³ëÅ×ÀÌ¼ÇÀ» ÇÁ·Î±×·¡¸Ó°¡ ¸¸µå´Â ÀÏÀº °ÅÀÇ ¾ø´Ù
+        		// System.out.println(m.getName());// Aí´ëž˜ìŠ¤ì— ì„ ì–¸ë˜ì–´ ìžˆëŠ” ë©”ì†Œë“œì´ë¦„ì„ ê°€ì§€ê³  ì˜¨ë‹¤
+        		// Methodìœ„ì— ìžˆëŠ” Annotationë¥¼ ì½ëŠ”ë‹¤ 
+        		// ì–´ë…¸í…Œì´ì…˜ì„ í”„ë¡œê·¸ëž˜ë¨¸ê°€ ë§Œë“œëŠ” ì¼ì€ ê±°ì˜ ì—†ë‹¤
         		RequestMapping rm=m.getAnnotation(RequestMapping.class);
-        		// ¾î³ëÅ×ÀÌ¼ÇÀ» ÀÐ¾î¿À´Â ¹æ¹ý 
+        		// ì–´ë…¸í…Œì´ì…˜ì„ ì½ì–´ì˜¤ëŠ” ë°©ë²• 
         		if(cmd.equals(rm.value()))
         		{
-        			m.invoke(obj, null);// ¸Þ¼Òµå ÀÌ¸§À» ¸ô¶óµµ Ã£À» ¼ö ÀÖ´Ù 
-        			// invoke ==> ÇØ´ç ¸Þ¼Òµå¸¦ È£Ãâ °úÁ¤ 
+        			m.invoke(obj, null);// ë©”ì†Œë“œ ì´ë¦„ì„ ëª°ë¼ë„ ì°¾ì„ ìˆ˜ ìžˆë‹¤ 
+        			// invoke ==> í•´ë‹¹ ë©”ì†Œë“œë¥¼ í˜¸ì¶œ ê³¼ì • 
         			// a.aaa()
-        			// ¸Þ¼Òµå È£Ãâ (obj(AÅ¬·¡½º)°¡ °¡Áö°í ÀÖ´Â ¸Þ¼Òµå¸¦ È£ÃâÇÑ´Ù)
-        			// null ==> ¸Å°³º¯¼ö
+        			// ë©”ì†Œë“œ í˜¸ì¶œ (obj(Aí´ëž˜ìŠ¤)ê°€ ê°€ì§€ê³  ìžˆëŠ” ë©”ì†Œë“œë¥¼ í˜¸ì¶œí•œë‹¤)
+        			// null ==> ë§¤ê°œë³€ìˆ˜
         		}
         	}
         }catch(Exception ex) {}
 	}
 
 }
+
+

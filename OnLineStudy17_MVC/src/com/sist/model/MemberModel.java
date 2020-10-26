@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.sist.controller.RequestMapping;
 
 /*
- *   1. È¸¿ø°¡ÀÔ
- *   2. ·Î±×ÀÎ 
+ *   1. íšŒì›ê°€ì…
+ *   2. ë¡œê·¸ì¸ 
  */
 public class MemberModel {
 	@RequestMapping("main/main.do")
@@ -17,14 +17,14 @@ public class MemberModel {
 	@RequestMapping("member/join.do")
     public String memberJoin(HttpServletRequest request)
     {
-    	request.setAttribute("msg", "È¸¿ø°¡ÀÔ");
+    	request.setAttribute("msg", "íšŒì›ê°€ì…");
     	request.setAttribute("main_jsp", "../member/join.jsp");
     	return "../main/main.jsp";
     }
 	@RequestMapping("member/login.do")
     public String memberLogin(HttpServletRequest request)
     {
-    	request.setAttribute("msg", "·Î±×ÀÎ");
+    	request.setAttribute("msg", "ë¡œê·¸ì¸");
     	request.setAttribute("main_jsp", "../member/login.jsp");
     	return "../main/main.jsp";
     }

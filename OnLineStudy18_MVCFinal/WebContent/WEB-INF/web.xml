@@ -6,11 +6,11 @@
     <servlet-class>com.sist.controller.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>C:\Users\채제분\git\online\OnLineStudy18_MVCFinal\WebContent\WEB-INF\application-context.xml</param-value>
+      <param-value>C:\Users\rkqtj\Web\OnLineStudy18_MVCFinal\WebContent\WEB-INF\application-context.xml</param-value>
     </init-param>
     <init-param>
       <param-name>path</param-name>
-      <param-value>C:\Users\채제분\git\online\OnLineStudy18_MVCFinal\src</param-value>
+      <param-value>C:\Users\rkqtj\Web\OnLineStudy18_MVCFinal\src</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>

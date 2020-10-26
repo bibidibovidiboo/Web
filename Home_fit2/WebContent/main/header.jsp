@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,10 +75,18 @@
 	            </ul>
 	
 	             <ul class="nav-shop" id="nav-user">
-	              <li class="nav-item"><button><a class="#" href="">로그인</a></button></li>
-	              <li class="nav-item">/</li>
-	              <li class="nav-item"><button><a class="#" href="">회원가입</a></button></li>
-	              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">1</span></button> </li>
+					<c:if test="${sessionScope.id==null }">
+	           			<li class="nav-item"><button><a class="#" href="../member/login.do">로그인</a></button></li>
+	              	 	<li class="nav-item">/</li>
+	              		<li class="nav-item"><button><a class="#" href="">회원가입</a></button></li>
+	              		<li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">1</span></button> </li>
+	          		</c:if>
+	          		<c:if test="${sessionScope.id!=null }">
+	          			<li class="nav-item"> ${sessionScope.name } 님</li>
+	          			<li class="nav-item">/</li>
+	           			<li class="nav-item"><button><a class="#" href="../member/logout.do">로그아웃</a></button></li>
+	              		<li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">1</span></button> </li>
+	          		</c:if>
 	            </ul>
 	          </div>
 	        </div>

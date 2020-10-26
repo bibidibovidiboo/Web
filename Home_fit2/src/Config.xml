@@ -36,6 +36,6 @@
     <mapper resource="com/sist/mapper/coach-mapper.xml"/>
     <mapper resource="com/sist/mapper/shop-mapper.xml"/>
     <mapper resource="com/sist/mapper/Ex-mapper.xml"/>
-     <mapper resource="com/sist/mapper/member-mapper.xml"/>
+    <mapper resource="com/sist/mapper/member-mapper.xml"/>
   </mappers>
 </configuration>

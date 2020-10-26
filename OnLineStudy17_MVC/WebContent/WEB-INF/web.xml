@@ -10,7 +10,7 @@
      -->
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>C:\Users\채제분\git\online\OnLineStudy16_MVC1\WebContent\WEB-INF\applicationContext.xml</param-value>
+      <param-value>C:\Users\rkqtj\Web\OnLineStudy16_MVC1\WebContent\WEB-INF\applicationContext.xml</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>

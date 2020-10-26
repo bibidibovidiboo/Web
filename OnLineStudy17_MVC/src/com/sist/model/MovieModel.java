@@ -4,28 +4,28 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.sist.controller.RequestMapping;
 
-// interface¸¦ »ç¿ëÇÏÁö ¾Ê´Â´Ù (ÀÏ¹İÀÚ¹Ù => POJO)
-// ÀüÃ¼ ¸ñ·Ï Ãâ·Â
-// »ó¼¼º¸±â
+// interfaceë¥¼ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤ (ì¼ë°˜ìë°” => POJO)
+// ì „ì²´ ëª©ë¡ ì¶œë ¥
+// ìƒì„¸ë³´ê¸°
 public class MovieModel {
   @RequestMapping("movie/list.do")
   public String movieListData(HttpServletRequest request)
   {
-	  request.setAttribute("msg", "¿µÈ­¸ñ·Ï");
-	  // include¿¡ Æ÷ÇÔµÉ jspÆÄÀÏ Àü¼Û
-	  request.setAttribute("main_jsp", "../movie/list.jsp");
-	  return "../main/main.jsp";// request¸¦ Àü¼ÛÇÒ jspÆÄÀÏ¸í 
+	  request.setAttribute("msg", "ì˜í™”ëª©ë¡");
+	  // includeì— í¬í•¨ë  jspíŒŒì¼ ì „ì†¡
+	  //request.setAttribute("main_jsp", "../movie/list.jsp");
+	  return "../main/main.jsp";// requestë¥¼ ì „ì†¡í•  jspíŒŒì¼ëª… 
   }
   @RequestMapping("movie/detail.do")
   public String movieDetailData(HttpServletRequest request)
   {
-	  request.setAttribute("msg", "¿µÈ­»ó¼¼º¸±â");
+	  request.setAttribute("msg", "ì˜í™”ìƒì„¸ë³´ê¸°");
 	  request.setAttribute("main_jsp", "../movie/detail.jsp");
-	  return "../main/main.jsp";// request¸¦ Àü¼ÛÇÒ jspÆÄÀÏ¸í // forward , sendRedirect (jsp => _ok.jsp)
+	  return "../main/main.jsp";// requestë¥¼ ì „ì†¡í•  jspíŒŒì¼ëª… // forward , sendRedirect (jsp => _ok.jsp)
 	  /*
-	   *   1. È­¸é¿¡ Ãâ·ÂÇÒ ³»¿ëÀÌ ÀÖ´Â °æ¿ì (request¸¦ À¯Áö) ==> forward
-	   *   2. È­¸é¿¡ Ãâ·ÂÇÏ´Â ³»¿ëÀÌ ¾Æ´Ñ °æ¿ì (µ¥ÀÌÅÍº£ÀÌ½º Ãß°¡,¼öÁ¤,»èÁ¦) ==> ¼öÇàÈÄ¿¡ sendRedirect() ´Ù¸¥ È­¸éÀ¸·Î ÀÌµ¿
-	   *      ¿¹) insert_ok.jsp ==> list.jsp
+	   *   1. í™”ë©´ì— ì¶œë ¥í•  ë‚´ìš©ì´ ìˆëŠ” ê²½ìš° (requestë¥¼ ìœ ì§€) ==> forward
+	   *   2. í™”ë©´ì— ì¶œë ¥í•˜ëŠ” ë‚´ìš©ì´ ì•„ë‹Œ ê²½ìš° (ë°ì´í„°ë² ì´ìŠ¤ ì¶”ê°€,ìˆ˜ì •,ì‚­ì œ) ==> ìˆ˜í–‰í›„ì— sendRedirect() ë‹¤ë¥¸ í™”ë©´ìœ¼ë¡œ ì´ë™
+	   *      ì˜ˆ) insert_ok.jsp ==> list.jsp
 	   *          login_ok.jsp ==> main.jsp
 	   *          
 	   */

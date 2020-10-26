@@ -7,12 +7,12 @@
   	<init-param>
   		<param-name>contextConfigLocation</param-name>
   		<!-- <param-value>/Users/haeni/git/Homefit/Home_fit/WebContent/WEB-INF/app.xml</param-value> -->
-  		<param-value>C:\Users\Homefit\Home_fit\WebContent\WEB-INF\app.xml</param-value>
+  		<param-value>C:\Users\rkqtj\Web\Home_fit2\WebContent\WEB-INF\app.xml</param-value>
   	</init-param>
   	<init-param>
   		<param-name>path</param-name>
   		<!-- <param-value>/Users/haeni/git/Homefit/Home_fit/src</param-value> -->
-  		<param-value>C:\Users\Homefit\Home_fit\src</param-value>
+  		<param-value>C:\Users\rkqtj\Web\Home_fit2\src</param-value>
   	</init-param>
   </servlet>
   	
