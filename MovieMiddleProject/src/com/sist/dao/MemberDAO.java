@@ -70,3 +70,18 @@ public class MemberDAO {
 	  return vo;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
