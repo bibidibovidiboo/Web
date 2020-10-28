@@ -44,7 +44,7 @@
   <!--================Checkout Area =================-->
   <section class="checkout_area section-margin--small">
     <div class="container">
-  		  <form method="post" action="../challenge_room/insert_ok.do" enctype="multipart/form-data">
+  		  <form method="post" action="../challenge/insert_ok.do" enctype="multipart/form-data">
   		<div class="billing_details">
             <div class="row">
 	  		<table class="table table-hover">
@@ -53,6 +53,13 @@
 			       <th class="danger text-right" width=30%>등록일</th>
 			       <td width=85%>
 			         <fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" />
+			       </td>
+			     </tr>
+			     
+			     <tr>
+			       <th class="danger text-right" width=30%>아이디</th>
+			       <td width=85%>
+			         
 			       </td>
 			     </tr>
 			     
@@ -98,7 +105,7 @@
 			     <tr>
 			       <th class="danger text-right" width=30%>도전 가능 인원</th>
 			       <td width=70%>
-			       	 <input type="text" class="form-control" id="limit" name="limit" placeholder="제한 인원수를 작성하세요">
+			       	 <input type="text" class="form-control" id="limit" name="limit" placeholder="제한 인원수를 작성하세요" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
 			       </td>
 			     </tr>
 			     

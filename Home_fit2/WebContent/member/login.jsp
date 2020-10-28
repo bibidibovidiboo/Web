@@ -24,6 +24,10 @@
 			}
 
 			$('#logFrm').submit();
+			/* 
+			여기서 이거 submit 말고 ajax로 받고 login_ok에서 전부 지우고 msg만 처리하고 
+			no id 웅앵은 이미 model에 담겨 있음  / 여기에는 추가할 div 설정해서 if 처리하기  
+			*/
 		});
 	});
 </script>

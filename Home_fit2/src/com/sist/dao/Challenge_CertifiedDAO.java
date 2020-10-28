@@ -22,6 +22,8 @@ public class Challenge_CertifiedDAO {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
 
+	
+	// 도전 목록
 	public static List<ChallengeVO> ChallengeListData(Map map) {
 		List<ChallengeVO> list = new ArrayList<ChallengeVO>();
 		SqlSession session = null;
@@ -41,13 +43,14 @@ public class Challenge_CertifiedDAO {
 		return list;
 	}
 
-	public static ChallengeVO ChallengeDetailData(int no) {
+	// 인증 상세보기
+	public static ChallengeVO ChallengeDetailData(int challenge_no) {
 		ChallengeVO vo = new ChallengeVO();
 		SqlSession session = null;
 		
 		try {
 			session=ssf.openSession();
-			vo  = session.selectOne("ChanllenDetailData",no);
+			vo  = session.selectOne("ChanllenDetailData",challenge_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -57,6 +60,9 @@ public class Challenge_CertifiedDAO {
 		}
 		return vo;
 	}
+	
+	
+	// 인증 데이터
 	public static List<Challenge_CertifiedVO> CertifiedData(int no)
 	{
 		List<Challenge_CertifiedVO> list = new ArrayList<Challenge_CertifiedVO>();
@@ -76,6 +82,8 @@ public class Challenge_CertifiedDAO {
 		
 		return list;
 	}	
+	
+	// 인증사진 올리기
 	// <insert id="Challenge_CertifiedUpload"  parameterType="Challenge_CertifiedVO">
 	public static void Challenge_CertifiedUpload(Challenge_CertifiedVO vo)
 	{	
@@ -92,7 +100,23 @@ public class Challenge_CertifiedDAO {
 		}
 		
 	}
-	
+	//<select id="Challnege_paticipation_check" parameterType="Challenge_ParticipationVO" resultType="int">
+	//방에 유저가 있는지 없는지 검색
+	public static int Challnege_paticipation_check(Challenge_ParticipationVO vo)
+	{
+		SqlSession session = null;
+		int count =0;
+		try {
+			session=ssf.openSession();
+			count=session.selectOne("Challnege_paticipation_check",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return count;
+	}
 	
 	//<insert id="Challenge_participation" parameterType="ChallengeVO">
 	// 방 참가 하기
@@ -111,6 +135,24 @@ public class Challenge_CertifiedDAO {
 		}
 		
 	}
-
+	
+	// <update id="Challenge_room_update" parameterType="ChallengeVO">
+	// 방 수정 업데이트
+	public static void Challenge_room_update(ChallengeVO vo)
+	{
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.update("Challenge_room_update",vo);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		
+	}
+	
 
 }

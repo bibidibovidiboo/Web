@@ -7,10 +7,21 @@
 <head>  
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../template/vendors/owl-carousel/owl.carousel.min.css">
+ <script type="text/javascript">
+  $(document).ready(function(){
+      var owl = $('.owl-custom');
+      owl.owlCarousel({
+          items: 4, // 아이템수
+          loop: false,       // 루프
+          dots: false,      // 닷츠
+          rewind: false // 반복    
+      });    
+  });
+  </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
-
 </head> 
 <body>			
 	<section class="blog_area single-post-area py-80px section-margin--small">
@@ -20,7 +31,7 @@
 									<div class="single-post row">
 											<div class="col-lg-12">
 													<div class="feature-img">
-															<img class="img-fluid" src="${vo.poster}" alt="">
+															<img class="img-fluid" src="/Home_fit/challenge_poster/${vo.poster}" alt="">
 													</div>
 											</div>
 											<div class="col-lg-3  col-md-3">
@@ -43,7 +54,7 @@
 																			</a>
 																	</li>
 																	<li>
-																			<a href="#">도전 시작일: ${vo.start_day }
+																			<a href="#">도전 시작일: ${vo.db_start_day }
 																					<i class="lnr lnr-eye"></i>
 																			</a>
 																	</li>
@@ -71,58 +82,79 @@
 																	</li>
 																	<li>
 																			<a href="#">
-																				<i class="fab fa-behance"></i>																				
-																			</a>
-																	</li>
-															</ul>
+														 						<i class="fab fa-behance"></i>																				
+													  						</a>
+													  				</li>
+													  		</ul>
 													</div>
-											</div>
+											</div>	 
 											<div class="col-lg-9 col-md-9 blog_details">
 													<h2>${vo.title }</h2>
 													<p class="excert">
-															[도전 내용] 	
+													 		[도전 내용] 	
 													</p>
 													<p>
-																${vo.content }
+													 			${vo.content }
 													</p>
 													<p>
-															
+													 		
 													</p>
-											</div>
+											</div>	 
 											<div class="col-lg-12">
 													<div class="quotes">
-															MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
-															on boot camp when you can get the MCSE study materials yourself at a fraction of the camp
-															price. However, who has the willpower to actually sit through a self-imposed MCSE training.
+													 		MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
+													 		on boot camp when you can get the MCSE study materials yourself at a fraction of the camp
+													 		price. However, who has the willpower to actually sit through a self-imposed MCSE training.
 													</div>
 													<c:forEach var="Certifiedvo" items="${Certifiedvo }">
-													<div class="row">
-															<div class="col-6">
-																	<img class="img-fluid" src="/Home_fit/challenge_poster/${Certifiedvo.poster}" alt="">
-																	<p>  
-																		  ${Certifiedvo.challenge_id }
-																	</p>
-															</div>	 
+													<h4>인증</h4>
+													<div class="owl-carousel owl-theme owl-custom" id="bestSellerCarousel">
+												          <div class="card text-center card-product">
+												            <div class="card-product__img">
+<%-- 												            	<img src="/Home_fit/challenge_poster/${Certifiedvo.poster}" alt=""> --%>
+												              <img class="img-fluid" src="/Home_fit/challenge_poster/${Certifiedvo.poster}" alt="">
+												              <ul class="card-product__imgOverlay">
+												                <li><button><i class="ti-search"></i></button></li>
+												                <li><button><i class="ti-shopping-cart"></i></button></li>
+												                <li><button><i class="ti-heart"></i></button></li>
+												              </ul>
+												            </div>
+												            <div class="card-body">
+												              <p>Accessories</p>
+												             <p href="single-product.html" class="card-product__title">아이디: ${Certifiedvo.challenge_id}</p>
+												              <p class="product__price">등록일: ${Certifiedvo.certified_date }</p>
+												            </div>
+												          </div>
+														</div>											
+<!-- 												밑에는  무슨 부분인지 모르겠음   필요없을거 같아서 주석 2020-10-24 [5:16] -->
+<!-- 													<div class="row"> -->
 <!-- 															<div class="col-6"> -->
 <%-- 																	<img class="img-fluid" src="/Home_fit/challenge_poster/${Certifiedvo.poster}" alt=""> --%>
 <!-- 																	<p>   -->
 <%-- 																		  ${Certifiedvo.challenge_id } --%>
 <!-- 																	</p> -->
-<!-- 															</div> -->
+<!-- 															</div>	  -->
+<!-- <!-- 															<div class="col-6"> --> 
+<%-- <%-- 																	<img class="img-fluid" src="/Home_fit/challenge_poster/${Certifiedvo.poster}" alt=""> --%>
+<!-- <!-- 																	<p>   --> 
+<%-- <%-- 																		  ${Certifiedvo.challenge_id } --%> 
+<!-- <!-- 																	</p> --> 
+<!-- <!-- 															</div> --> 
 																   
-															<div class="col-lg-12 mt-4">
-																	
-															</div>
-													</div>
-													</c:forEach>
-													<p> 
+<!-- 															<div class="col-lg-12 mt-4"> -->
+																  	
+<!-- 															</div> -->
+<!-- 													</div>		   -->
+													</c:forEach>  
+													<p> 		  
 																[ 도전 글귀 ]MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
 																on boot camp when you can get the MCSE study materials yourself at a fraction of
 																the camp price. However, who has the willpower.
 													</p>
 													<p align="center">
+													<c:if test="${count==1 || count==3}">
 														<a href="../challenge/Certified.do?challenge_no=${ vo.challenge_no}" class="button button-postComment button--active" >인증하기</a>
-														<a href="../member/logout.do" class="button button-postComment button--active" >로그아웃</a>
+													</c:if>													
 													</p>
 											</div>
 									</div>
@@ -292,7 +324,13 @@
 															<textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'"
 																	required=""></textarea>
 													</div>
+													<c:if test="${count==1 || count==3}">
+													<a href="../challenge/participation.do?challenge_no=${vo.challenge_no }" class="button button-postComment button--active">이미 참여 중인 도전입니다.</a>
+													</c:if>
+													<c:if test="${count==0}">
 													<a href="../challenge/participation.do?challenge_no=${vo.challenge_no }" class="button button-postComment button--active">참여 하기</a>
+													</c:if>
+													
 											</form>
 									</div>
 							</div>
@@ -449,45 +487,17 @@
 													<div class="br"></div>
 											</aside>
 											<aside class="single-sidebar-widget tag_cloud_widget">
-													<h4 class="widget_title">Tag Clouds</h4>
-													<ul class="list">
-															<li>
-																	<a href="#">Technology</a>
-															</li>
-															<li>
-																	<a href="#">Fashion</a>
-															</li>
-															<li>
-																	<a href="#">Architecture</a>
-															</li>
-															<li>
-																	<a href="#">Fashion</a>
-															</li>
-															<li>
-																	<a href="#">Food</a>
-															</li>
-															<li>
-																	<a href="#">Technology</a>
-															</li>
-															<li>
-																	<a href="#">Lifestyle</a>
-															</li>
-															<li>
-																	<a href="#">Art</a>
-															</li>
-															<li>
-																	<a href="#">Adventure</a>
-															</li>
-															<li>
-																	<a href="#">Food</a>
-															</li>
-															<li>
-																	<a href="#">Lifestyle</a>
-															</li>
-															<li>
-																	<a href="#">Adventure</a>
-															</li>
-													</ul>
+											<c:if test="${count==3 && compare<0}">
+												<p align="center">
+													<a href="../challenge/challenge_room_update.do?challenge_no=${vo.challenge_no }" class="button button-postComment button--active">도전 수정하기</a>
+												</p>
+											</c:if>
+											<c:if test="${count==3 && compare>=0}">
+												<p align="center">
+													<a href="" class="btn btn-sm btn-danger">도전 수정 불가</a>
+													<h4 align="center">도전이 이미 시작되었습니다.</h4>
+												</p>
+											</c:if>
 											</aside>
 									</div>
 							</div>

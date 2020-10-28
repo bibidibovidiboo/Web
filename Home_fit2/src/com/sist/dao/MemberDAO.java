@@ -3,7 +3,10 @@ import java.nio.channels.SeekableByteChannel;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.sist.vo.MemberVO;
-
+/**
+ * @author 이보미
+ *
+ */
 public class MemberDAO {
   private static SqlSessionFactory ssf;
   static
