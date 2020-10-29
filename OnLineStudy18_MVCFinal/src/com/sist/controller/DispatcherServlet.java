@@ -11,46 +11,46 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 /*
  *   MVC 
- *   M = Model => ¿äÃ»Ã³¸®(µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á) °á°ú°ªÀ» °¡Áö°í ¿À´Â ¿ªÇÒ (request¿¡ °ªÀ» ´ã´Â´Ù)
- *   V = View  => ¿äÃ» °á°ú°ªÀ» ¹Ş¾Æ¼­ Ãâ·Â 
- *   C = Controller => ModelÀ» ¿¬°áÇØ¼­ °á°ú°ªÀ» °¡Áö°í ¿ÂÈÄ¿¡ JSP °á°ú°ªÀ» Àü¼Û
+ *   M = Model => ìš”ì²­ì²˜ë¦¬(ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²°) ê²°ê³¼ê°’ì„ ê°€ì§€ê³  ì˜¤ëŠ” ì—­í•  (requestì— ê°’ì„ ë‹´ëŠ”ë‹¤)
+ *   V = View  => ìš”ì²­ ê²°ê³¼ê°’ì„ ë°›ì•„ì„œ ì¶œë ¥ 
+ *   C = Controller => Modelì„ ì—°ê²°í•´ì„œ ê²°ê³¼ê°’ì„ ê°€ì§€ê³  ì˜¨í›„ì— JSP ê²°ê³¼ê°’ì„ ì „ì†¡
  *   
- *   ÀÏ¹İ ÀÚ¹Ù (Model) <========> JSP,¼­ºí¸´ Åë½Å
+ *   ì¼ë°˜ ìë°” (Model) <========> JSP,ì„œë¸”ë¦¿ í†µì‹ 
  *                 request,session
  *                 request.setAttribute(),session.setAttribute()
  *                 ====================== ======================
- *                   ÇÑ°³ÀÇ JSP¿¡¼­ »ç¿ë              ÇÁ·ÎÁ§Æ® ÀüÃ¼ JSP¿¡¼­ °øÀ¯
+ *                   í•œê°œì˜ JSPì—ì„œ ì‚¬ìš©              í”„ë¡œì íŠ¸ ì „ì²´ JSPì—ì„œ ê³µìœ 
  *                                                              request
- *    »ç¿ëÀÚ ¿äÃ» (.do)  ========> Controller(DispatcherServlet) ============= 
- *                      ##service¸Ş¼Òµå => ÅèÄ¹¿¡ ÀÇÇØ È£Ãâ => ¾²·¹µå·Î Á¦ÀÛ 
+ *    ì‚¬ìš©ì ìš”ì²­ (.do)  ========> Controller(DispatcherServlet) ============= 
+ *                      ##serviceë©”ì†Œë“œ => í†°ìº£ì— ì˜í•´ í˜¸ì¶œ => ì“°ë ˆë“œë¡œ ì œì‘ 
  *                    request       service(HttpServletRequest request)
  *                    
- *                             µ¥ÀÌÅÍ ¿äÃ» 
+ *                             ë°ì´í„° ìš”ì²­ 
  *    Model (request)     <===============> DAO,Manager
- *     ¿äÃ»µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¼­ Ã³¸®           Ã³¸®µÈ °á°ú°ªÀ» º¸³»ÁØ´Ù
- *     ¿äÃ»°á°ú°ªÀ» ¹Ş¾Æ¼­ 
- *      request¿¡ Ã·ºÎ 
+ *     ìš”ì²­ë°ì´í„°ë¥¼ ë°›ì•„ì„œ ì²˜ë¦¬           ì²˜ë¦¬ëœ ê²°ê³¼ê°’ì„ ë³´ë‚´ì¤€ë‹¤
+ *     ìš”ì²­ê²°ê³¼ê°’ì„ ë°›ì•„ì„œ 
+ *      requestì— ì²¨ë¶€ 
  *      ============
- *      request.setAttribute() ===========> Controller ==========> ÇØ´ç JSPÀü¼Û ==== JSP¿¡¼­´Â 
- *                                                                          request¿¡ ÀÖ´Â µ¥ÀÌÅÍ Ãâ·Â
- *                                          ==> ÇØ´ç JSP¿¡ request
+ *      request.setAttribute() ===========> Controller ==========> í•´ë‹¹ JSPì „ì†¡ ==== JSPì—ì„œëŠ” 
+ *                                                                          requestì— ìˆëŠ” ë°ì´í„° ì¶œë ¥
+ *                                          ==> í•´ë‹¹ JSPì— request
  *                                          forward(request,response)
- *                                          sendRedirect("ÆÄÀÏ¸í") ==> _ok.jsp
- *                         ==> request¿¡ ÀÖ´Â µ¥ÀÌÅÍ¸¦ Ãâ·Â  forward(request¸¦ Àü¼Û)
- *                             request¿¡ ÀÖ´Â µ¥ÀÌÅÍ¸¦ Ãâ·ÂÇÏÁö ¾Ê´Â °æ¿ì request¸¦ ¹ö¸®°í ´Ù¸¥ ÆÄÀÏ·Î ÀÌµ¿ 
+ *                                          sendRedirect("íŒŒì¼ëª…") ==> _ok.jsp
+ *                         ==> requestì— ìˆëŠ” ë°ì´í„°ë¥¼ ì¶œë ¥  forward(requestë¥¼ ì „ì†¡)
+ *                             requestì— ìˆëŠ” ë°ì´í„°ë¥¼ ì¶œë ¥í•˜ì§€ ì•ŠëŠ” ê²½ìš° requestë¥¼ ë²„ë¦¬ê³  ë‹¤ë¥¸ íŒŒì¼ë¡œ ì´ë™ 
  *                             
- *    Controller : Model¿¡ ÀÖ´Â ¸Ş¼Òµå¸¦ Ã£±â ==> ½ÇÇà  ==> ¸Ş¼Òµå½ÇÇà°á°ú¸¦ JSP·Î Àü¼Û
+ *    Controller : Modelì— ìˆëŠ” ë©”ì†Œë“œë¥¼ ì°¾ê¸° ==> ì‹¤í–‰  ==> ë©”ì†Œë“œì‹¤í–‰ê²°ê³¼ë¥¼ JSPë¡œ ì „ì†¡
  *                 ====================
- *                 Á¶°Ç¹® , Annotataion (ÀÚÀ¯·Ó´Ù:¸Ş¼Òµå¸íÀ» ÅëÀÏÇÏÁö ¾Ê´Â´Ù) 
+ *                 ì¡°ê±´ë¬¸ , Annotataion (ììœ ë¡­ë‹¤:ë©”ì†Œë“œëª…ì„ í†µì¼í•˜ì§€ ì•ŠëŠ”ë‹¤) 
  */
 import java.util.*;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
-// C:\\Users\\Ã¤Á¦ºĞ\\git\\online\\OnLineStudy18_MVCFinal\\src
+// C:\\Users\\ì±„ì œë¶„\\git\\online\\OnLineStudy18_MVCFinal\\src
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    // Model¸¦ ÀúÀå => »ç¿ëÀÚ ¿äÃ» => Ã£¾ÆÁÖ´Â ¿ªÇÒ 
-	// Model class¸¦ ¸ğ¾Æ¼­ ¸Ş¸ğ¸® ÇÒ´ç => Ã£±â 
+    // Modelë¥¼ ì €ì¥ => ì‚¬ìš©ì ìš”ì²­ => ì°¾ì•„ì£¼ëŠ” ì—­í•  
+	// Model classë¥¼ ëª¨ì•„ì„œ ë©”ëª¨ë¦¬ í• ë‹¹ => ì°¾ê¸° 
 	List<String> clsList=new ArrayList<String>();
 	public void init(ServletConfig config) throws ServletException {
 		String xmlPath=config.getInitParameter("contextConfigLocation");
@@ -60,11 +60,11 @@ public class DispatcherServlet extends HttpServlet {
 		try
 		{
 			DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
-			DocumentBuilder db=dbf.newDocumentBuilder();// ÆÄ¼­±â »ı¼º
+			DocumentBuilder db=dbf.newDocumentBuilder();// íŒŒì„œê¸° ìƒì„±
 			Document doc=db.parse(new File(xmlPath));
-			// ·çÆ® ÅÂ±×
+			// ë£¨íŠ¸ íƒœê·¸
 			Element root=doc.getDocumentElement();
-			// È¸¿ø°¡ÀÔ , ·Î±×ÀÎ(¼¼¼Ç) => »ó¼¼ => ÄíÅ° => ÂòÇÏ±â , ¿¹¸ÅÃ³¸® 
+			// íšŒì›ê°€ì… , ë¡œê·¸ì¸(ì„¸ì…˜) => ìƒì„¸ => ì¿ í‚¤ => ì°œí•˜ê¸° , ì˜ˆë§¤ì²˜ë¦¬ 
 			NodeList list=root.getElementsByTagName("component-scan");
 			ComponentScan com=new ComponentScan();
 			for(int i=0;i<list.getLength();i++)
@@ -86,10 +86,10 @@ public class DispatcherServlet extends HttpServlet {
 			System.out.println(s);
 		}
 	}
-    // ¿äÃ» °á°ú°ª ==> ÇØ´ç JSP·Î Àü¼Û 
+    // ìš”ì²­ ê²°ê³¼ê°’ ==> í•´ë‹¹ JSPë¡œ ì „ì†¡ 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ¸Ş¼Òµå Ã£¾Æ¼­ ¼öÇà => °á°ú°ªÀ» JSP·Î Àü¼Û
-		// »ç¿ëÀÚ°¡ ¿äÃ»ÇÑ ³»¿ëÀ» ¹Ş´Â´Ù 
+		// ë©”ì†Œë“œ ì°¾ì•„ì„œ ìˆ˜í–‰ => ê²°ê³¼ê°’ì„ JSPë¡œ ì „ì†¡
+		// ì‚¬ìš©ìê°€ ìš”ì²­í•œ ë‚´ìš©ì„ ë°›ëŠ”ë‹¤ 
 		// http://localhost
 		String cmd=request.getRequestURI();
 		// main/main.do
@@ -97,8 +97,8 @@ public class DispatcherServlet extends HttpServlet {
 		///OnLineStudy18_MVCFinal/
 		try
 		{
-			// ¸Ş¸ğ¸® ÇÒ´ç  (ModelÅ¬·¡½º ¸Ş¸ğ¸® ÇÒ´ç) => clsList
-			// new MainModel() ==> Controller (ÇÑ°³) ==> °øÀ¯ (¼öÁ¤À» ÇÏ¸é => À¯Áöº¸¼ö°¡ ¾î·Æ´Ù) => °íÁ¤
+			// ë©”ëª¨ë¦¬ í• ë‹¹  (Modelí´ë˜ìŠ¤ ë©”ëª¨ë¦¬ í• ë‹¹) => clsList
+			// new MainModel() ==> Controller (í•œê°œ) ==> ê³µìœ  (ìˆ˜ì •ì„ í•˜ë©´ => ìœ ì§€ë³´ìˆ˜ê°€ ì–´ë µë‹¤) => ê³ ì •
 			// XML => C/Java/C#/JavaScript
 			for(String cls:clsList)
 			{
@@ -114,9 +114,9 @@ public class DispatcherServlet extends HttpServlet {
 				 *    Object obj=new A();
 				 *    obj=new B();
 				 */
-				// ¸Ş¼Òµå¸¦ Ã£¾Æ¼­ È£Ãâ (invoke())
+				// ë©”ì†Œë“œë¥¼ ì°¾ì•„ì„œ í˜¸ì¶œ (invoke())
 				Method[] methods=clsName.getDeclaredMethods();
-				// Å¬·¡½º¿¡ ¼±¾ğµÈ ¸ğµç ¸Ş¼Òµå¸¦ °¡Áö°í ¿Â´Ù 
+				// í´ë˜ìŠ¤ì— ì„ ì–¸ëœ ëª¨ë“  ë©”ì†Œë“œë¥¼ ê°€ì§€ê³  ì˜¨ë‹¤ 
 				for(Method m:methods)
 				{
 					RequestMapping rm=m.getAnnotation(RequestMapping.class);
@@ -124,7 +124,7 @@ public class DispatcherServlet extends HttpServlet {
 					{
 						 String jsp=(String)m.invoke(obj, request);
 								// a.display()
-						if(jsp.equals("redirect"))
+						if(jsp.startsWith("redirect"))
 						{
 							response.sendRedirect(jsp.substring(jsp.indexOf(":")+1));
 							// return redirect:list.do
@@ -132,11 +132,11 @@ public class DispatcherServlet extends HttpServlet {
 						}
 						else
 						{
-							// requestÀü¼Û 
+							// requestì „ì†¡ 
 							RequestDispatcher rd=request.getRequestDispatcher(jsp);
 							rd.forward(request, response);
 						}
-						return;// Á¾·á (response=>»ç¿ëÀÚ¿¡°Ô µ¥ÀÌÅÍ Àü¼Û½Ã ÇÑ¹ø¸¸ ¼öÇà)
+						return;// ì¢…ë£Œ (response=>ì‚¬ìš©ìì—ê²Œ ë°ì´í„° ì „ì†¡ì‹œ í•œë²ˆë§Œ ìˆ˜í–‰)
 						
 					}
 				}
@@ -150,3 +150,5 @@ public class DispatcherServlet extends HttpServlet {
 	}
 
 }
+
+

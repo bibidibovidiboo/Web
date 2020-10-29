@@ -142,6 +142,7 @@ public class MovieDAO {
    {
 	   SqlSession session=ssf.openSession();
 	   String tdata=session.selectOne("movieTheaterNo", no);
+	   
 	   session.close();
 	   return tdata;
    }
@@ -153,8 +154,96 @@ public class MovieDAO {
 	   session.close();
 	   return tdata;
    }
+   /*
+    *   <select id="theaterReserveData" resultType="String" parameterType="int">
+		    SELECT rday FROM theater_info
+		    WHERE tno=#{tno}
+		  </select>
+    */
+   public static String theaterReserveData(int tno)
+   {
+	   SqlSession session=ssf.openSession();
+	   String rday=session.selectOne("theaterReserveData", tno);
+	   session.close();
+	   return rday;
+   }
+   /*
+    *   <select id="dayTimeData" resultType="String" parameterType="int">
+		    SELECT rtime FROM date_info
+		    WHERE rday=#{rday}
+		  </select>
+		  
+		  <select id="timeData" resultType="String" parameterType="int">
+		    SELECT time FROM time_info
+		    WHERE tno=#{tno}
+		  </select>
+    */
+   // 1,4,5, 10
+   public static String dayTimeData(int rday)
+   {
+	   SqlSession session=ssf.openSession();
+	   String times=session.selectOne("dayTimeData", rday);
+	   session.close();
+	   return times;
+   }
+   
+   public static String timeData(int tno)
+   {
+	   SqlSession session=ssf.openSession();
+	   String time=session.selectOne("timeData", tno);
+	   session.close();
+	   return time;
+   }
+   /*
+    *  <insert id="reserveInsert" parameterType="com.sist.vo.ReserveVO">
+    */
+   public static void reserveInsert(ReserveVO vo)
+   {
+	   SqlSession session=ssf.openSession(true);
+	   session.insert("reserveInsert",vo);
+	   session.close();
+   }
+   
+   /*
+    * <select id="mypageReserveListData" resultMap="reserveList" parameterType="string">
+	    SELECT no,title,poster,theater,time,inwon,price,isreserve
+	    FROM reserve,movie_info
+	    WHERE mno=no AND id=#{id}
+	  </select>
+	  <select id="adminReserveListData" resultMap="reserveList">
+	    SELECT no,title,poster,theater,time,inwon,price,isreserve
+	    FROM reserve,movie_info
+	    WHERE mno=no
+	  </select>
+    */
+   public static List<ReserveVO> mypageReserveListData(String id)
+   {
+	   SqlSession session=ssf.openSession();
+	   List<ReserveVO> list=session.selectList("mypageReserveListData",id);
+	   session.close();
+	   return list;
+   }
+   public static List<ReserveVO> adminReserveListData()
+   {
+	   SqlSession session=ssf.openSession();
+	   List<ReserveVO> list=session.selectList("adminReserveListData");
+	   session.close();
+	   return list;
+   }
+   /*
+	     <update id="reserveOk" parameterType="int">
+	  		UPDATE reserve SET
+	  		isreserve='y'
+	  		WHERE no=#{no}
+	  	</update>
+   */
+   public static void reserveOk(int no){
+	   SqlSession session=ssf.openSession(true); // autocommit
+	   session.update("reserveOk",no);
+	   session.close();
+   }
+   
+   
+  
+   
 }
-
-
-
-

@@ -2,7 +2,6 @@ package com.sist.controller;
 import java.util.*;
 import java.io.*;
 // com.sist.model
-// C:\Users\Ã¤Á¦ºÐ\git\online\OnLineStudy18_MVCFinal\src\\com\\sist\\model
 public class ComponentScan {
     public List<String> fileConfig(String pack,String path)
     {
