@@ -6,23 +6,22 @@
 		SELECT COUNT(*) FROM home_user
 		WHERE id=#{id}
 	</select>
-
+	<!-- 회원가입  -->
 	<insert id="memberInsert" parameterType="com.sist.vo.MemberVO">
-		INSERT INTO home_user VALUES(
+		INSERT INTO home_user(id,pwd,name,email,gender,birthday,tel,post,addr1,addr2,admin) VALUES(
 		#{id},
 		#{pwd},
 		#{name},
 		#{email},
+		#{gender},
 		#{birthday},
+		#{tel},
 		#{post},
 		#{addr1},
 		#{addr2},
-		#{tel},
-		#{content},
 		'n'
 		)
 	</insert>
-
 	<select id="memberLogin" resultType="MemberVO"
 		parameterType="String">
 		SELECT pwd,id,name,admin FROM home_user

@@ -1,5 +1,7 @@
 package com.sist.vo;
 
+import java.util.*;
+
 public class MemberVO {
     private String id;
     private String pwd;

@@ -122,8 +122,13 @@ public class DispatcherServlet extends HttpServlet {
 					RequestMapping rm=m.getAnnotation(RequestMapping.class);
 					if(cmd.equals(rm.value()))
 					{
-						 String jsp=(String)m.invoke(obj, request);
-								// a.display()
+						String jsp="";
+						if(rm.value().equals("movie/detail_before.do")) {
+							jsp=(String)m.invoke(obj, request,response);
+						}
+						else {
+							jsp=(String)m.invoke(obj, request);
+						}
 						if(jsp.startsWith("redirect"))
 						{
 							response.sendRedirect(jsp.substring(jsp.indexOf(":")+1));

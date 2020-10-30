@@ -78,7 +78,7 @@
 					<c:if test="${sessionScope.id==null }">
 	           			<li class="nav-item"><button><a class="#" href="../member/login.do">로그인</a></button></li>
 	              	 	<li class="nav-item">/</li>
-	              		<li class="nav-item"><button><a class="#" href="">회원가입</a></button></li>
+	              		<li class="nav-item"><button><a class="#" href="../member/join.do">회원가입</a></button></li>
 	              		<li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">1</span></button> </li>
 	          		</c:if>
 	          		<c:if test="${sessionScope.id!=null }">
