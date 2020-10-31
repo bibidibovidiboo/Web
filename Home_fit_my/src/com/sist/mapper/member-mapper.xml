@@ -19,7 +19,7 @@
       #{post},
       #{addr1},
       #{addr2},
-      #{my_exercise},
+	  #{my_exercise},
       #{my_level},
       'n'
       )
