@@ -31,6 +31,9 @@
 		margin: 110px 0
 	}
 }
+.form-control:disabled, .form-control[readonly] {
+    background-color: #fff;
+}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript"
@@ -118,7 +121,7 @@
 							action="../member/join_ok.do" name="joinFrm" id="joinFrm">
 							<div class="col-md-9 form-group">
 								<input type="text" class="form-control" id="id" name="id"
-									placeholder="아이디" onfocus="this.placeholder = ''"
+									placeholder="아이디" disabled onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '아이디'">
 							</div>
 							<div class="col-md-3 form-group join_check">
@@ -126,12 +129,12 @@
 									id="join_btn" onclick="idcheck()">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="pwd" name="pwd"
+								<input type="password" class="form-control" id="pwd" name="pwd"
 									placeholder="비밀번호" onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '비밀번호'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="pwd1" name="pwd1"
+								<input type="password" class="form-control" id="pwd1" name="pwd1"
 									placeholder="비밀번호 재확인" onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '비밀번호 재확인'">
 							</div>

@@ -42,6 +42,7 @@
 
 			$('#logFrm').submit();
 			/* 
+			로그인 내부에서 띄우고 싶으면 
 			여기서 이거 submit 말고 ajax로 받고 login_ok에서 전부 지우고 msg만 처리하고 
 			no id 웅앵은 이미 model에 담겨 있음  / 여기에는 추가할 div 설정해서 if 처리하기  
 			*/
@@ -61,10 +62,10 @@
 							<!--  login form  -->
 							<form method="post" class="row login_form" action="../member/login_ok.do" id="logFrm" >
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="log_id" name="id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+									<input type="text" class="form-control" id="log_id" name="id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
 								</div>
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="log_pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+									<input type="password" class="form-control" id="log_pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
 								</div>
 								<div class="col-md-12 form-group">
 									<div class="creat_account">
