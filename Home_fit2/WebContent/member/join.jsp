@@ -31,8 +31,9 @@
 		margin: 110px 0
 	}
 }
+
 .form-control:disabled, .form-control[readonly] {
-    background-color: #fff;
+	background-color: #fff;
 }
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
@@ -102,6 +103,19 @@
 				$('#addr1').focus();
 				return;
 			}
+			
+			let my_exercise = $('#my_exercise').val();
+			if (my_exercise.trim() == "") {
+				$('#my_exercise').focus();
+				return;
+			}
+			
+			let my_level = $('#my_level').val();
+			if (my_level.trim() == "") {
+				$('#my_level').focus();
+				return;
+			}
+			
 
 			// 데이터 전송 
 			$('#joinFrm').submit();
@@ -134,8 +148,9 @@
 									onblur="this.placeholder = '비밀번호'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="pwd1" name="pwd1"
-									placeholder="비밀번호 재확인" onfocus="this.placeholder = ''"
+								<input type="password" class="form-control" id="pwd1"
+									name="pwd1" placeholder="비밀번호 재확인"
+									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '비밀번호 재확인'">
 							</div>
 							<div class="col-md-12 form-group">
@@ -192,6 +207,59 @@
 									placeholder="이메일" onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '이메일'">
 							</div>
+							
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="my_exercise" name="my_exercise"
+									placeholder="운동" onfocus="this.placeholder = ''"
+									onblur="this.placeholder = '운동'">
+							</div>
+							
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="my_level" name="my_level"
+									placeholder="레벨" onfocus="this.placeholder = ''"
+									onblur="this.placeholder = '레벨'">
+							</div> 
+							
+
+							
+							<!-- <div class="col-md-12">
+								<div class="form-check-inline">
+									<label class="form-check-label"> 
+										<input type="checkbox" class="form-check-input" name="my_level">상
+									</label>
+								</div>
+								<div class="form-check-inline">
+									<label class="form-check-label"> 
+										<input type="checkbox" class="form-check-input" name="my_level">중
+									</label>
+								</div>
+								<div class="form-check-inline">
+									<label class="form-check-label"> 
+										<input type="checkbox" class="form-check-input" name="my_level">하
+									</label>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-check-inline">
+									<label class="form-check-label"> 
+									<input type="checkbox" class="form-check-input" name="my_exercise">근력운동
+									</label>
+								</div>
+								<div class="form-check-inline">
+									<label class="form-check-label"> 
+										<input type="checkbox" class="form-check-input" name="my_exercise">요가
+									</label>
+								</div>
+								<div class="form-check-inline">
+									<label class="form-check-label"> 
+										<input type="checkbox" class="form-check-input" name="my_exercise">필라테스
+									</label>
+								</div>
+							</div> -->
+
+							<div class="col-md-12">
+								<button type="submit" value="submit" class="button button-login w-100 join_btn2">가입하기</button>
+							</div>
 
 							<!-- 	<div class="col-md-12 form-group">
 								<div class="creat_account">
@@ -199,10 +267,7 @@
 									<label for="f-option2">Keep me logged in</label>
 								</div>
 							</div> -->
-							<div class="col-md-12 form-group">
-								<button type="submit" value="submit"
-									class="button button-login w-100 join_btn2">가입하기</button>
-							</div>
+							
 						</form>
 					</div>
 				</div>
