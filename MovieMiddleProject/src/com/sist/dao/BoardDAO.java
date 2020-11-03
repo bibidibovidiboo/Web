@@ -138,8 +138,82 @@ public class BoardDAO {
 	   session.close();
 	   return list;
    }
+   /*
+    *   <select id="replyParentData" parameterType="int" resultType="ReplyVO">
+   SELECT group_id,group_step,group_tab
+   FROM movie_reply
+   WHERE no=#{no}
+  </select>
+  <update id="replyStepIncrement" parameterType="ReplyVO">
+    UPDATE movie_reply SET
+    group_step=group_step+1
+    WHERE group_id=#{group_id} AND group_step>#{group_step}
+  </update>
+  <insert id="resplyReplyInsert" parameterType="ReplyVO">
+    <selectKey keyProperty="no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(no)+1,1) as no FROM movie_reply
+    </selectKey>
+    INSERT INTO movie_reply(no,bno,id,name,msg,group_id,group_step,group_tab,root,depth) VALUES(
+      #{no},
+      #{bno},
+      #{id},
+      #{name},
+      #{msg},
+      #{group_id},
+      #{group_step},
+      #{group_tab},
+      #{root},
+      0
+    )
+  </insert>
+  <update id="replyDepthIncrement" parameterType="int">
+    UPDATE movie_reply SET
+    depth=depth+1
+    WHERE no=#{no}
+  </update>
+    */
+   public static void replyReplyInsert(int root,ReplyVO vo)
+   {
+	   SqlSession session=ssf.openSession();
+	   ReplyVO pvo=session.selectOne("replyParentData",root);
+	   session.update("replyStepIncrement", pvo);
+	   vo.setGroup_id(pvo.getGroup_id());
+	   vo.setGroup_step(pvo.getGroup_step()+1);
+	   vo.setGroup_tab(pvo.getGroup_tab()+1);
+	   vo.setRoot(root);
+	   
+	   session.insert("resplyReplyInsert", vo);
+	   session.update("replyDepthIncrement", root);
+	   session.commit();
+	   session.close();
+   }
+   
+   public static void replyUpdate(ReplyVO vo) {
+	   SqlSession session=ssf.openSession(true);
+	   session.update("replyUpdate",vo); // 스프링은 이것만 넣어도 값 알아서 가져옴 
+	   session.close();
+   }
+   
+   public static void replyDelete(int no) {
+	   SqlSession session=ssf.openSession();
+	   ReplyVO vo=session.selectOne("replyDelete",no);
+	   // depth,root
+	   if(vo.getDepth()==0) {
+		   session.delete("replyDelete",no);
+	   }
+	   else {
+		   session.delete("replyDepthDecrement",vo.getRoot());
+	   }
+	   session.update("replyDepthDecrement",vo.getRoot());
+	   
+	   session.commit();
+	   session.close();
+   }
+   public static int replyCount(int bno) {
+	   SqlSession session=ssf.openSession();
+	   int count=session.selectOne("replyCount",bno);
+	   session.close();
+	   return count;
+   }
+
 }
-
-
-
-

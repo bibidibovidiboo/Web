@@ -50,6 +50,10 @@ public class BoardModel {
 	   map.put("end",end);
 	   
 	   List<BoardVO> list=BoardDAO.boardListData(map);
+	   for(BoardVO vo:list) {
+		   int rc=BoardDAO.replyCount(vo.getNo());
+		   vo.setReplyCount(rc);
+	   }
 	   
 	   // 총페이지 읽기
 	   int totalpage=BoardDAO.boardTotalPage();
@@ -138,6 +142,59 @@ public class BoardModel {
 	   vo.setName(name);
 	   // DAO연결 
 	   BoardDAO.replyInsert(vo);
+	   return "redirect:../board/detail.do?no="+bno;
+   }
+   @RequestMapping("board/reply_reply_insert.do")
+   public String reply_reply_insert(HttpServletRequest request)
+   {
+	   try
+	   {
+		   request.setCharacterEncoding("UTF-8");
+	   }catch(Exception ex) {}
+	   String no=request.getParameter("no");
+	   System.out.println("no="+no);
+	   String bno=request.getParameter("bno");
+	   System.out.println("bno="+bno);
+	   String msg=request.getParameter("msg");
+	   ReplyVO vo=new ReplyVO();
+	   //vo.setRoot(Integer.parseInt(no));
+	   vo.setBno(Integer.parseInt(bno));
+	   vo.setMsg(msg);
+	   HttpSession session=request.getSession();
+	   String id=(String)session.getAttribute("id");
+	   String name=(String)session.getAttribute("name");
+	   vo.setId(id);
+	   vo.setName(name);
+	   // DB연동 
+	   BoardDAO.replyReplyInsert(Integer.parseInt(no), vo);
+	   return "redirect:../board/detail.do?no="+bno;
+   }
+   
+   @RequestMapping("board/reply_update.do")
+   public String reply_update(HttpServletRequest request) {
+	   // 데이터 받기
+	   try {
+		   
+	   }catch (Exception ex) {}
+	   String no=request.getParameter("no");
+	   String bno=request.getParameter("bno");
+	   String msg=request.getParameter("msg");
+	   // DB => UPDATE
+	   ReplyVO vo=new ReplyVO();
+	   vo.setNo(Integer.parseInt(no));
+	   vo.setMsg(no);
+	   return "redirect:../board/detail.do?no="+bno;
+   }
+   
+   @RequestMapping("board/reply_delete.do")
+   public String reply_delete(HttpServletRequest request) {
+	   // 데이터 받기
+	   try {
+		   
+	   }catch (Exception ex) {}
+	   String no=request.getParameter("no");
+	   String bno=request.getParameter("bno");
+	   BoardDAO.replyDelete(Integer.parseInt(no));
 	   return "redirect:../board/detail.do?no="+bno;
    }
 }

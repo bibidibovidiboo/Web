@@ -4,7 +4,10 @@ import com.sist.dao.*;
 import com.sist.vo.*;
 
 import java.util.*;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author 김한비
@@ -90,7 +93,27 @@ public class ShopModel {
 	   request.setAttribute("endPage", endPage);
 	   // include 파일 지정
 	   request.setAttribute("main_jsp", "../shop/shop.jsp");
-	   return "../main/main.jsp";
+	   
+	    HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		// 쿠키 읽기
+		Cookie[] cookies=request.getCookies();
+		List<ShopVO> cList=new ArrayList<ShopVO>();
+		if(cookies!=null)
+		{
+			for(int i=cookies.length-1;i>=0;i--)
+			{
+				if(cookies[i].getName().startsWith(id))
+				{
+					String shop_no=cookies[i].getValue();
+					ShopVO vo=ShopDAO.shopDetailData(Integer.parseInt(shop_no));
+					cList.add(vo);
+				}
+			}
+		}
+		request.setAttribute("cList", cList);
+		return "../main/main.jsp";
+	   
 }
 		
 	
