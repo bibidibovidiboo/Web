@@ -187,33 +187,142 @@ public class BoardDAO {
 	   session.commit();
 	   session.close();
    }
-   
-   public static void replyUpdate(ReplyVO vo) {
+   /*
+    *  <update id="replyUpdate" parameterType="ReplyVO">
+		    UPDATE movie_reply SET
+		    msg=#{msg}
+		    WHERE no=#{no}
+		  </update>
+    */
+   public static void replyUpdate(ReplyVO vo)
+   {
 	   SqlSession session=ssf.openSession(true);
-	   session.update("replyUpdate",vo); // 스프링은 이것만 넣어도 값 알아서 가져옴 
+	   session.update("replyUpdate",vo);
 	   session.close();
+	   
    }
-   
-   public static void replyDelete(int no) {
+   /*
+    *   <!-- 삭제 -->
+	  <select id="replyInfoData" resultType="ReplyVO" parameterType="int">
+	    SELECT depth,root FROM movie_reply
+	    WHERE no=#{no}
+	  </select>
+	  <!-- depth==0 -->
+	  <delete id="replyDelete" parameterType="int">
+	    DELETE FROM movie_reply
+	    WHERE no=#{no}
+	  </delete>
+	  <!-- depth!=0 -->
+	  <update id="replyMsgUpdate" parameterType="int">
+	    UPDATE movie_reply SET
+	    msg='관리자가 삭제한 댓글입니다'
+	    WHERE no=#{no}
+	  </update>
+	  <update id="replyDepthDecrement" parameterType="int">
+	    UPDATE movie_reply SET
+	    depth=depth-1
+	    WHERE no=#{no}
+	  </update>
+    */
+   public static void replyDelete(int no)
+   {
 	   SqlSession session=ssf.openSession();
-	   ReplyVO vo=session.selectOne("replyDelete",no);
 	   // depth,root
-	   if(vo.getDepth()==0) {
-		   session.delete("replyDelete",no);
+	   ReplyVO vo=session.selectOne("replyInfoData", no);
+	   if(vo.getDepth()==0)
+	   {
+		   session.delete("replyDelete", no);
 	   }
-	   else {
-		   session.delete("replyDepthDecrement",vo.getRoot());
+	   else
+	   {
+		   session.update("replyMsgUpdate",no);
 	   }
 	   session.update("replyDepthDecrement",vo.getRoot());
 	   
 	   session.commit();
 	   session.close();
    }
-   public static int replyCount(int bno) {
+   /*
+    *  <select id="replyCount" resultType="int" parameterType="int">
+   SELECT COUNT(*) FROM movie_reply
+   WHERE bno=#{bno}
+  </select>
+    */
+   public static int replyCount(int bno)
+   {
 	   SqlSession session=ssf.openSession();
-	   int count=session.selectOne("replyCount",bno);
+	   int count=session.selectOne("replyCount", bno);
 	   session.close();
 	   return count;
    }
-
+   /*
+    *   <select id="boardGetPassword" resultType="String" parameterType="int">
+		    SELECT pwd FROM movie_board
+		    WHERE no=#{no}
+		  </select>
+    */
+   // 게시판 수정 
+   public static BoardVO boardUpdateData(int no)
+   {
+	// 연결
+	   SqlSession session=ssf.openSession();
+	   // 데이터 읽기
+	   BoardVO vo=session.selectOne("boardDetailData", no);
+	   session.close();
+	   return vo;
+   }
+   public static String boardGetPassword(int no)
+   {
+	   SqlSession session=ssf.openSession();
+	   String db_pwd=session.selectOne("boardGetPassword", no);
+	   session.close();
+	   return db_pwd;
+   }
+   
+   /*
+    *  <update id="boardUpdate" parameterType="BoardVO">
+    UPDATE movie_board SET
+    name=#{name},subject=#{subject},content=#{content}
+    WHERE no=#{no}
+  </update>
+    */
+   public static void boardUpdate(BoardVO vo)
+   {
+	   SqlSession session=ssf.openSession(true);
+	   session.update("boardUpdate", vo);
+	   session.close();
+   }
+   /*
+    *   <delete id="boardDelete" parameterType="int">
+		    DELETE FROM movie_board 
+		    WHERE no=#{no}
+		  </delete>
+		  <delete id="boardReplyDelete" parameterType="int">
+		    DELETE FROM movie_reply
+		    WHERE bno=#{bno}
+		  </delete>
+    */// replyCount
+   public static boolean boardDelete(int no,String pwd)
+   {
+	   boolean bCheck=false;
+	   SqlSession session=ssf.openSession();
+	   String db_pwd=session.selectOne("boardGetPassword", no);
+	   if(db_pwd.equals(pwd))
+	   {
+		   bCheck=true;
+		   int count=session.selectOne("replyCount", no);
+		   if(count>0)
+		   {
+			   session.delete("boardReplyDelete",no);
+		   }
+		   session.delete("boardDelete",no);
+		   session.commit();
+	   }
+	   else
+	   {
+		   bCheck=false;
+	   }
+	   session.close();
+	   return bCheck;
+   }
 }

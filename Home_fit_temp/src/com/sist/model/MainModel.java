@@ -3,12 +3,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.sist.controller.RequestMapping;
 import com.sist.dao.MemberDAO;
+import com.sist.dao.ShopDAO;
 import com.sist.vo.MemberVO;
+import com.sist.vo.ShopVO;
 /**
  * @author 이보미
  *
@@ -30,6 +33,24 @@ public class MainModel {
 	  {
 		  list1 = MemberDAO.memberRcList1(id);
 		  list2 = MemberDAO.memberRcList2(id);
+		  
+		  // 쿠키처리 
+		  Cookie[] cookies=request.getCookies();
+		  List<ShopVO> cList=new ArrayList<ShopVO>();
+		  if(cookies!=null)
+		  {
+		  	for(int i=cookies.length-1;i>=0;i--)
+		  	{
+		  		cookies[i].setPath("/");
+		  		if(cookies[i].getName().startsWith(id))
+		  		{
+		  			String shop_no=cookies[i].getValue();
+		  			ShopVO vo=ShopDAO.shopDetailData(Integer.parseInt(shop_no));
+		  			cList.add(vo);
+		  		}
+		  	}
+		  }
+		  request.setAttribute("cList", cList);		  
 	  }
 	  
 	  // 랜덤처리 

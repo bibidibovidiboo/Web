@@ -7,6 +7,7 @@ import java.util.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -94,25 +95,7 @@ public class ShopModel {
 	   // include 파일 지정
 	   request.setAttribute("main_jsp", "../shop/shop.jsp");
 	   
-	    HttpSession session=request.getSession();
-		String id=(String)session.getAttribute("id");
-		// 쿠키 읽기
-		Cookie[] cookies=request.getCookies();
-		List<ShopVO> cList=new ArrayList<ShopVO>();
-		if(cookies!=null)
-		{
-			for(int i=cookies.length-1;i>=0;i--)
-			{
-				if(cookies[i].getName().startsWith(id))
-				{
-					String shop_no=cookies[i].getValue();
-					ShopVO vo=ShopDAO.shopDetailData(Integer.parseInt(shop_no));
-					cList.add(vo);
-				}
-			}
-		}
-		request.setAttribute("cList", cList);
-		return "../main/main.jsp";
+	   return "../main/main.jsp";
 	   
 }
 		
@@ -210,6 +193,26 @@ public class ShopModel {
 //	  request.setAttribute("endPage", endPage); // include 파일 지정
 //	  //request.setAttribute("main_jsp", "../shop/shop_list.jsp"); return
 //	  "../shop/shop_list.jsp"; }
+	
+	
+	// 쿠키 처리 
+	@RequestMapping("shop/shop_detail_before.do") 
+	public String movie_detail_before(HttpServletRequest request,
+			HttpServletResponse response) {
+		String shop_no = request.getParameter("shop_no");
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		Cookie cookie=new Cookie(id+shop_no, shop_no);
+		// 기간 
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60*24);
+		//전송
+		response.addCookie(cookie);
+		System.out.println("실행되나요"+shop_no);
+		
+		return "redirect:../shop/shop_detail.do?shop_no=" + shop_no;
+	}
+	
 	 
 	//디테일
 	

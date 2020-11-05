@@ -119,36 +119,64 @@
     depth=depth+1
     WHERE no=#{no}
   </update>
-  <!-- 여기서 #을 쓰기때문에 map이나 vo를 쓰는데 만약 쓰려는 vo가 vo내에 다있으면 vo쓰고 아니면 map을 쓴다 -->
+  
   <update id="replyUpdate" parameterType="ReplyVO">
     UPDATE movie_reply SET
     msg=#{msg}
     WHERE no=#{no}
   </update>
-  <!-- 삭제  -->
+  <!-- 삭제 -->
   <select id="replyInfoData" resultType="ReplyVO" parameterType="int">
-  	SELECT depth,root FROM movie_reply
-  	WHERE no=#{no}
+    SELECT depth,root FROM movie_reply
+    WHERE no=#{no}
   </select>
   <!-- depth==0 -->
   <delete id="replyDelete" parameterType="int">
-  	DELETE FROM movie_reply
-  	WHERE no=#{no}
+    DELETE FROM movie_reply
+    WHERE no=#{no}
   </delete>
   <!-- depth!=0 -->
   <update id="replyMsgUpdate" parameterType="int">
-  	UPDATE movie_reply SET
-  	msg='관리자가 삭제한 댓글입니다'
-  	WHERE no=#{no}
+    UPDATE movie_reply SET
+    msg='관리자가 삭제한 댓글입니다'
+    WHERE no=#{no}
   </update>
-  <update id="replyDepthcrement" parameterType="int">
-  	UPDATE movie_reply SET
-  	depth=depth-1
-  	WHERE no=#{no}
+  <update id="replyDepthDecrement" parameterType="int">
+    UPDATE movie_reply SET
+    depth=depth-1
+    WHERE no=#{no}
   </update>
+  
   <select id="replyCount" resultType="int" parameterType="int">
- 	DELETE FROM movie_reply
-  	WHERE bno=#{bno} 
+   SELECT COUNT(*) FROM movie_reply
+   WHERE bno=#{bno}
   </select>
-
+  
+  <select id="boardGetPassword" resultType="String" parameterType="int">
+    SELECT pwd FROM movie_board
+    WHERE no=#{no}
+  </select>
+  <update id="boardUpdate" parameterType="BoardVO">
+    UPDATE movie_board SET
+    name=#{name},subject=#{subject},content=#{content}
+    WHERE no=#{no}
+  </update>
+  
+  <delete id="boardDelete" parameterType="int">
+    DELETE FROM movie_board 
+    WHERE no=#{no}
+  </delete>
+  <delete id="boardReplyDelete" parameterType="int">
+    DELETE FROM movie_reply
+    WHERE bno=#{bno}
+  </delete>
 </mapper>
+
+
+
+
+
+
+
+
+

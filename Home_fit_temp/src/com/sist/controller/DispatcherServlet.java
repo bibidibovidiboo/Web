@@ -9,10 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.*;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
-
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     // Model를 저장 => 사용자 요청 => 찾아주는 역할 
@@ -21,13 +21,12 @@ public class DispatcherServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		String xmlPath=config.getInitParameter("contextConfigLocation");
 		String path=config.getInitParameter("path");
+		System.out.println("xml-path:"+xmlPath);
+		System.out.println("path:"+path);
 		try
 		{
-			// 
 			DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
-			// 파서기 생성
-			DocumentBuilder db=dbf.newDocumentBuilder();
-
+			DocumentBuilder db=dbf.newDocumentBuilder();// 파서기 생성
 			Document doc=db.parse(new File(xmlPath));
 			// 루트 태그
 			Element root=doc.getDocumentElement();
@@ -61,7 +60,6 @@ public class DispatcherServlet extends HttpServlet {
 		String cmd=request.getRequestURI();
 		// main/main.do
 		cmd=cmd.substring(request.getContextPath().length()+1);
-		System.out.println(cmd);
 		///OnLineStudy18_MVCFinal/
 		try
 		{
@@ -72,16 +70,7 @@ public class DispatcherServlet extends HttpServlet {
 			{
 				Class clsName=Class.forName(cls);
 				Object obj=clsName.newInstance();
-				// MainModel m=new MainModel();
-				/*
-				 *     class A
-				 *     class B
-				 *     
-				 *     //A a=new A();
-				 *    // a=new B();
-				 *    Object obj=new A();
-				 *    obj=new B();
-				 */
+
 				// 메소드를 찾아서 호출 (invoke())
 				Method[] methods=clsName.getDeclaredMethods();
 				// 클래스에 선언된 모든 메소드를 가지고 온다 
@@ -90,16 +79,22 @@ public class DispatcherServlet extends HttpServlet {
 					RequestMapping rm=m.getAnnotation(RequestMapping.class);
 					if(cmd.equals(rm.value()))
 					{
-						 String jsp=(String)m.invoke(obj, request);
-								// a.display()
+						String jsp="";
+						if(rm.value().equals("shop/shop_detail_before.do")) {
+							jsp=(String)m.invoke(obj, request,response);
+						}
+						else {
+							jsp=(String)m.invoke(obj, request);
+						}
 						if(jsp.startsWith("redirect"))
 						{
 							response.sendRedirect(jsp.substring(jsp.indexOf(":")+1));
-							// return redirect:list.   
+							// return redirect:list.do
 							// return "../main/main.jsp"
 						}
 						else
 						{
+							
 							// request전송 
 							RequestDispatcher rd=request.getRequestDispatcher(jsp);
 							rd.forward(request, response);
@@ -116,5 +111,4 @@ public class DispatcherServlet extends HttpServlet {
 		}
 		
 	}
-
 }

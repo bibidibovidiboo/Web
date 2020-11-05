@@ -28,7 +28,7 @@ $(function(){
 		    
 			$('#rIn'+no).show();
 			$(this).text("취소");
-;			i=1;
+			i=1;
 	  }
 	  else
 	  {
@@ -39,21 +39,34 @@ $(function(){
 		
 	});
 	
-	$('.reply_update').click(function()) {
+	$('.reply_update').click(function(){
 		let no=$(this).attr("value");
 		$('.rIn').hide();
 		$('.rUp').hide();
-		if(u==0){
+		if(u==0)
+		{
 			$('#rUp'+no).show();
 			u=1;
-		}else{
+		}
+		else
+		{
 			$('#rUp'+no).hide();
 			u=0;
 		}
 	})
-	
-	
-	
+	let d=0;
+	$('#delBtn').click(function(){
+		if(d==0)
+		{
+			$('#delTr').show();
+			d=1;
+		}
+		else
+		{
+			$('#delTr').hide();
+			d=0;
+		}
+	});
 });
 </script>
 </head>
@@ -84,15 +97,18 @@ $(function(){
       </tr>
       <tr>
         <td colspan="4" class="text-right">
-          <a href="#" class="btn btn-xs btn-danger">수정</a>
-          <a href="#" class="btn btn-xs btn-info">삭제</a>
+          <a href="../board/update.do?no=${vo.no }" class="btn btn-xs btn-danger">수정</a>
+          <span class="btn btn-xs btn-info" id="delBtn">삭제</span>
           <a href="../board/list.do" class="btn btn-xs btn-success">목록</a>
         </td>
-      </tr>
-      <tr style="display:none">
+      </tr> 
+      <tr style="display:none" id="delTr">
         <td colspan="4" class="text-right">
-          비밀번호:<input type=password id=pwd size=10 class="input-sm">
-            <input type=button value="삭제" class="btn btn-sm btn-primary">
+            <form method=post action="../board/delete.do">
+          비밀번호:<input type=password id=pwd size=10 class="input-sm" name=pwd>
+            <input type=hidden name=no value="${vo.no }">
+            <input type=submit value="삭제" class="btn btn-sm btn-primary">
+            </form>
         </td>
       </tr>
       <tr style="display:none">
@@ -119,7 +135,7 @@ $(function(){
           </td>
           <td class="text-right">
             <c:if test="${sessionScope.id==rvo.id }">
-             <span class="btn btn-xs btn-primary reply_update" value="${rvo.no }">수정</a>
+             <span class="btn btn-xs btn-primary reply_update" value="${rvo.no }">수정</span>
              <a href="../board/reply_delete.do?no=${rvo.no }&bno=${vo.no}" class="btn btn-xs btn-success">삭제</a>
             </c:if>
              <span class="btn btn-xs btn-danger reply_reply" value="${rvo.no }">댓글</span>
@@ -149,9 +165,10 @@ $(function(){
       </tr>
       <tr class="rUp" id="rUp${rvo.no }" value="${rvo.no }" style="display:none">
        <td colspan="2">
-        <form method=post action="../board/reply_insert.do">
+        <form method=post action="../board/reply_update.do">
+            <input type=hidden name="no" value="${rvo.no }">
             <input type=hidden name="bno" value="${vo.no }">
-	        <textarea rows="3" cols="80" name="msg" style="float: left"></textarea>
+	        <textarea rows="3" cols="80" name="msg" style="float: left">${rvo.msg }</textarea>
 	        <input type=submit value="댓글수정" style="height:70px;float: left"
 	          class="btn btn-sm btn-primary"
 	        >
@@ -164,12 +181,12 @@ $(function(){
     <table class="table">
       <tr>
        <td>
-        <form method=post action="../board/reply_update.do">
+        <form method=post action="../board/reply_insert.do">
             <input type=hidden name="bno" value="${vo.no }">
-            <input type=hidden name="bno" value="${vo.bno }">
-	        <textarea rows="3" cols="80" name="msg" style="float: left">${rvo.msg }</textarea>
+	        <textarea rows="3" cols="80" name="msg" style="float: left"></textarea>
 	        <input type=submit value="댓글쓰기" style="height:70px;float: left"
-	          class="btn btn-sm btn-primary">
+	          class="btn btn-sm btn-primary"
+	        >
         </form>
        </td>
       </tr>
@@ -177,7 +194,3 @@ $(function(){
   </div>
 </body>
 </html>
-
-
-
-
