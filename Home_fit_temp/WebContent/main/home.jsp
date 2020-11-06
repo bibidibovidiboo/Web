@@ -26,18 +26,20 @@
 	background-position: center;
 	background-size: cover;
 }
+
 .main_content {
 	float: left;
-    margin-top: 162px;
+	margin-top: 162px;
 }
 </style>
 </head>
 <body>
 	<div class="main_bg">
-		<div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0 main_content">
+		<div
+			class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0 main_content">
 			<div class="hero-banner__content">
 				<h4>Shop is fun</h4>
-				<h1>Browse Our Premium Product</h1>
+				<h1>함께 도전해요!</h1>
 				<p>Us which over of signs divide dominion deep fill bring
 					they're meat beho upon own earth without morning over third. Their
 					male dry. They are great appear whose land fly grass.</p>
@@ -45,94 +47,69 @@
 			</div>
 		</div>
 	</div>
-	<!-- 메인 1  -->
-	<!-- <section class="hero-banner">
-		<div class="container main_bg">
-			<div class="row no-gutters align-items-center pt-60px">
-				<div class="col-5 d-none d-sm-block">
-					<div class="hero-banner__img"></div>
-				</div>
-				
-			</div>
-		</div>
-	</section>
-	  -->
-	<!-- <section class="hero-banner">
-		<div class="container">
-			<div class="row no-gutters align-items-center pt-60px">
-				<div class="col-5 d-none d-sm-block">
-					<div class="hero-banner__img">
-						<img class="img-fluid" src="../theme/img/home/hero-banner.png"
-							alt="">
-					</div>
-				</div>
-				<div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
-					<div class="hero-banner__content">
-						<h4>Shop is fun</h4>
-						<h1>Browse Our Premium Product</h1>
-						<p>Us which over of signs divide dominion deep fill bring
-							they're meat beho upon own earth without morning over third.
-							Their male dry. They are great appear whose land fly grass.</p>
-						<a class="button button-hero" href="#">Browse Now</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	 -->
+<%-- 
+	<!-- 로그인 안됐을 때 / 홈트샵 랜덤출력  -->
+	<c:if test="${sessionScope.id ==null }">
+		<section class="section-margin calc-60px">
+			<div class="container">
+				<div class="section-intro pb-60px">
 
-	<!-- 메인 2 -->
-	<!--  <section class="section-margin mt-0">
-      <div class="owl-carousel owl-theme hero-carousel">
-        <div class="hero-carousel__slide">
-          <img src="../theme/img/home/hero-slide1.png" alt="" class="img-fluid">
-          <a href="#" class="hero-carousel__slideOverlay">
-            <h3>Wireless Headphone</h3>
-            <p>Accessories Item</p>
-          </a>
-        </div>
-        <div class="hero-carousel__slide">
-          <img src="../theme/img/home/hero-slide2.png" alt="" class="img-fluid">
-          <a href="#" class="hero-carousel__slideOverlay">
-            <h3>Wireless Headphone</h3>
-            <p>Accessories Item</p>
-          </a>
-        </div>
-        <div class="hero-carousel__slide">
-          <img src="../theme/img/home/hero-slide3.png" alt="" class="img-fluid">
-          <a href="#" class="hero-carousel__slideOverlay">
-            <h3>Wireless Headphone</h3>
-            <p>Accessories Item</p>
-          </a>
-        </div>
-      </div>
-    </section> -->
+					<h4 align="left">
+						홈트샵<span class="section-intro__style">[${shoptext}] 카테고리</span>
+					</h4>
+				</div>
 
-	<!--  최근 방문한 샵  -->
-	<section class="section-margin calc-60px">
-		<div class="container">
-			<div class="section-intro pb-60px">
-				<h2 class="main_title">최근 본 홈트샵 상품</h2>
-			</div>
-
-			<div class="owl-carousel owl-theme" id="bestSellerCarousel">
-				<c:forEach var="vo" items="${cList }" varStatus="s">
-					<div class="card text-center card-product">
-						<div class="card-product__img">
-							<img class="img-fluid" src="${vo.poster }" alt="">
+				<div class="row">
+					<c:forEach items="${list2}" var="vo" begin="0" end="3">
+						<div class="col-md-6 col-lg-4 col-xl-3">
+							<div class="card text-center card-product">
+								<div class="card-product__img">
+									<a href="../shop/shop_detail.do?shop_no=${vo.shop_no }"> <img
+										class="card-img" src="${vo.poster }" alt="">
+									</a>
+								</div>
+								<div class="card-body">
+									<h4 class="card-product__title main_subtit">
+										<a href="../shop/shop_detail.do?shop_no=${vo.shop_no }">${vo.title}</a>
+									</h4>
+								</div>
+							</div>
 						</div>
-						<div class="card-body">
-							<h4 class="card-product__title">${vo.title }</a>
-							</h4>
-						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+	</c:if> --%>
 
 
-	<!-- 나의 운동 레벨별 출력  -->
+	<!--  로그인 됐을 때 / 최근 방문한 샵  -->
+	<c:if test="${sessionScope.id != null }">
+		<section class="section-margin calc-60px">
+			<div class="container">
+				<div class="section-intro pb-60px">
+					<h2 class="main_title">최근 본 홈트샵 상품</h2>
+				</div>
+
+				<div class="owl-carousel owl-theme" id="bestSellerCarousel">
+					<c:forEach var="vo" items="${cList }" varStatus="s">
+						<div class="card text-center card-product">
+							<div class="card-product__img">
+								<img class="img-fluid" src="${vo.poster }" alt="">
+							</div>
+							<div class="card-body">
+								<h4 class="card-product__title">${vo.title }</a>
+								</h4>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</section>
+	</c:if>
+
+
+	<!-- 로그일 됐을 때 / 나의 운동 레벨별 출력  -->
+	<c:if test="${sessionScope.id != null }">
 	<section class="section-margin calc-60px">
 		<div class="container">
 			<div class="section-intro pb-60px">
@@ -146,16 +123,10 @@
 								<a href="../ex/detail.do?home_no=${vo.evo.home_no }"> <img
 									class="card-img" src="${vo.evo.poster }" alt="">
 								</a>
-								<!-- 이미지 호버부분  
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul> -->
 							</div>
 							<div class="card-body">
 								<h4 class="card-product__title main_subtit">
-									<a href="single-product.html">${vo.evo.subject }</a>
+									<a href="../ex/detail.do?home_no=${vo.evo.home_no }">${vo.evo.subject }</a>
 								</h4>
 							</div>
 						</div>
@@ -165,8 +136,12 @@
 			</div>
 		</div>
 	</section>
+	</c:if>
+	
+	
 
 	<!-- 나의 운동 카테고리 출력  -->
+	<c:if test="${sessionScope.id != null }">
 	<section class="section-margin calc-60px">
 		<div class="container">
 			<div class="section-intro pb-60px">
@@ -189,7 +164,7 @@
 							</div>
 							<div class="card-body">
 								<h4 class="card-product__title main_subtit">
-									<a href="single-product.html">${vo.evo.subject }</a>
+									<a href="../ex/detail.do?home_no=${vo.evo.home_no }">${vo.evo.subject }</a>
 								</h4>
 							</div>
 						</div>
@@ -198,30 +173,7 @@
 			</div>
 		</div>
 	</section>
-
-
-
-
-	<%-- 	
-	<!-- 최근 방문한 샵  -->
-	<div class="row" style="height: 500px;">
-		<h2 class="main_title">최근 방문한 샵은?</h2>
-		<c:forEach var="vo" items="${cList }" varStatus="s">
-			<c:if test="${s.index<6 }">
-				<div class="col-md-2">
-					<div class="thumbnail">
-						<img src="${vo.poster }" alt="Lights" style="width: 100%">
-						<div class="caption">
-							<p>${vo.title }</p>
-						</div>
-					</div>
-				</div>
-			</c:if>
-		</c:forEach>
-	</div>
- 	--%>
-
-
+	</c:if>
 
 
 	<!-- ================ offer section start ================= -->
